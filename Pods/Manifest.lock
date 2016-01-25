@@ -1,0 +1,48 @@
+PODS:
+  - ACSPinKit (1.0.3):
+    - FDKeychain (= 1.2.2)
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - FDKeychain (1.2.2)
+  - JKLLockScreenViewController (1.0.0)
+
+DEPENDENCIES:
+  - ACSPinKit
+  - AFNetworking (~> 2.5)
+  - JKLLockScreenViewController (from `https://github.com/tiny2n/JKLLockScreenViewController.git`)
+
+EXTERNAL SOURCES:
+  JKLLockScreenViewController:
+    :git: https://github.com/tiny2n/JKLLockScreenViewController.git
+
+CHECKOUT OPTIONS:
+  JKLLockScreenViewController:
+    :commit: 673cbcb1a7dbfbd02ec73588fcdb07340ab54fc9
+    :git: https://github.com/tiny2n/JKLLockScreenViewController.git
+
+SPEC CHECKSUMS:
+  ACSPinKit: d3af1db456db7483e9a54fd92f94a615d6ea1193
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  FDKeychain: ce0d5e4fac972c28e921e893ffe982832695d17b
+  JKLLockScreenViewController: 60e81c27244c5576bcfee074ba671a1b388f0de4
+
+COCOAPODS: 0.39.0

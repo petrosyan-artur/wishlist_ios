@@ -1,71 +1,235 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1Nq-WD-wLh">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--SEARCH-->
+        <scene sceneID="yTv-bY-xbe">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WishSearchViewController" id="wZk-dB-AY6" customClass="WishSearchViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="4Cf-ms-wOg"/>
+                        <viewControllerLayoutGuide type="bottom" id="vBa-B5-50H"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="y2e-5C-TyO">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NzR-pq-rzg">
-                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                            </button>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="hP7-RB-KdB">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="NzR-pq-rzg" secondAttribute="trailing" constant="-20" id="a1I-78-q8M"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="NzR-pq-rzg" secondAttribute="bottom" constant="354" id="bp4-nN-06k"/>
-                            <constraint firstItem="NzR-pq-rzg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="myD-Xy-7aZ">
-                                <variation key="widthClass=compact" constant="-500"/>
-                            </constraint>
-                            <constraint firstItem="NzR-pq-rzg" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="396" id="urK-oU-r5s">
-                                <variation key="widthClass=compact" constant="46"/>
-                            </constraint>
+                            <constraint firstItem="hP7-RB-KdB" firstAttribute="top" secondItem="4Cf-ms-wOg" secondAttribute="bottom" id="5si-Oe-Qye"/>
+                            <constraint firstItem="hP7-RB-KdB" firstAttribute="leading" secondItem="y2e-5C-TyO" secondAttribute="leadingMargin" constant="-20" id="OEX-3K-cLu"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hP7-RB-KdB" secondAttribute="trailing" constant="-20" id="o8L-VQ-FhS"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="SEARCH" image="tabSearchIcon" id="E4k-s8-UIV"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DG6-pu-yJp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="739.5" y="-560"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="79l-Z3-2Jc">
+            <objects>
+                <viewController id="igm-ai-Aj4" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TIM-sU-ZXg"/>
+                        <viewControllerLayoutGuide type="bottom" id="JeW-Sa-iEc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="83e-7f-azT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="TKr-9s-dbn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ddy-41-HAm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="732" y="237"/>
+        </scene>
+        <!--Create Wish View Controller-->
+        <scene sceneID="ixi-Fv-MFP">
+            <objects>
+                <viewController storyboardIdentifier="CreateWishViewController" id="FHD-G5-IXl" customClass="CreateWishViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6tq-Mz-MxO"/>
+                        <viewControllerLayoutGuide type="bottom" id="fS0-rK-YrZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="116-w5-JI4">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nam-zr-JYc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1404.75" y="237"/>
+        </scene>
+        <!--LIKES-->
+        <scene sceneID="yrG-gm-kuH">
+            <objects>
+                <viewController storyboardIdentifier="LikedWishesViewController" id="Ccp-xp-In6" customClass="LikedWishesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lhm-me-iY4"/>
+                        <viewControllerLayoutGuide type="bottom" id="lle-pE-vCC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9oR-Q6-Qtg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="LIKES" image="tabLikesIcon" id="PSE-ru-Uec"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AIb-cl-bS5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="740" y="1123"/>
+        </scene>
+        <!--MY WISHES-->
+        <scene sceneID="2Ci-gP-esr">
+            <objects>
+                <viewController storyboardIdentifier="MyWishesViewController" id="68f-ph-NWi" customClass="MyWishesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5bh-Mz-hRF"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ea5-YY-ojX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0Bh-Ms-sBX">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="MY WISHES" image="tabMyWishesIcon" id="2dM-qu-QSv"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ro8-qJ-WJj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="804" y="1988"/>
+        </scene>
+        <!--MAIN-->
+        <scene sceneID="dDe-cc-xIz">
+            <objects>
+                <viewController storyboardIdentifier="WishListViewController" id="YUJ-sX-vtu" customClass="WishListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qFT-C3-hUm"/>
+                        <viewControllerLayoutGuide type="bottom" id="TEu-lv-93D"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wgb-65-h77">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39p-ZQ-NlK">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="105" id="JPg-pp-Yhu"/>
+                                    <constraint firstAttribute="width" constant="161" id="xhC-2Q-tnx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="xhC-2Q-tnx"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="JPg-pp-Yhu"/>
+                                        <include reference="xhC-2Q-tnx"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="39p-ZQ-NlK" firstAttribute="top" secondItem="qFT-C3-hUm" secondAttribute="bottom" constant="78" id="Gxd-wG-A5q"/>
+                            <constraint firstItem="39p-ZQ-NlK" firstAttribute="leading" secondItem="wgb-65-h77" secondAttribute="leading" constant="15" id="NMh-cY-NGM"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="NzR-pq-rzg"/>
+                                <exclude reference="39p-ZQ-NlK"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="a1I-78-q8M"/>
-                                <exclude reference="myD-Xy-7aZ"/>
-                                <exclude reference="urK-oU-r5s"/>
-                                <exclude reference="bp4-nN-06k"/>
-                            </mask>
-                        </variation>
-                        <variation key="widthClass=compact">
-                            <mask key="constraints">
-                                <exclude reference="urK-oU-r5s"/>
+                                <exclude reference="Gxd-wG-A5q"/>
+                                <exclude reference="NMh-cY-NGM"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="subviews">
-                                <include reference="NzR-pq-rzg"/>
+                                <include reference="39p-ZQ-NlK"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="a1I-78-q8M"/>
-                                <include reference="myD-Xy-7aZ"/>
-                                <include reference="urK-oU-r5s"/>
-                                <include reference="bp4-nN-06k"/>
+                                <include reference="Gxd-wG-A5q"/>
+                                <include reference="NMh-cY-NGM"/>
                             </mask>
                         </variation>
                     </view>
+                    <tabBarItem key="tabBarItem" title="MAIN" image="tabHomeIcon" id="89D-tH-Huc"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B1w-hW-aPO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="732" y="-1421.25"/>
+        </scene>
+        <!--Root Navigation Controller-->
+        <scene sceneID="Dat-5j-WSv">
+            <objects>
+                <navigationController storyboardIdentifier="RootNavigationController" id="1Nq-WD-wLh" customClass="RootNavigationController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uwf-Tp-AdQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bD5-bK-B19" kind="relationship" relationship="rootViewController" id="OzO-eW-4ZG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pXu-dx-93t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-872" y="237"/>
+        </scene>
+        <!--Main Tab Bar Controller-->
+        <scene sceneID="yv8-r6-g29">
+            <objects>
+                <tabBarController storyboardIdentifier="RootTabBarController" id="bD5-bK-B19" customClass="MainTabBarController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="K9Y-Ce-6bg">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="5nK-qO-ddA">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="W6A-83-yRr">
+                                <rect key="frame" x="550" y="7" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="tabSettings"/>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="EvX-dt-R8C">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="YUJ-sX-vtu" kind="relationship" relationship="viewControllers" id="jBu-A0-OUb"/>
+                        <segue destination="wZk-dB-AY6" kind="relationship" relationship="viewControllers" id="Q91-sj-IZQ"/>
+                        <segue destination="igm-ai-Aj4" kind="relationship" relationship="viewControllers" id="lxf-ja-GzR"/>
+                        <segue destination="Ccp-xp-In6" kind="relationship" relationship="viewControllers" id="NVU-fU-s8f"/>
+                        <segue destination="68f-ph-NWi" kind="relationship" relationship="viewControllers" id="Zfd-wJ-De0"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UGd-NR-p9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-207.75" y="237.75"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="tabHomeIcon" width="26" height="26"/>
+        <image name="tabLikesIcon" width="26" height="26"/>
+        <image name="tabMyWishesIcon" width="26" height="26"/>
+        <image name="tabSearchIcon" width="26" height="26"/>
+        <image name="tabSettings" width="64" height="63"/>
+    </resources>
 </document>

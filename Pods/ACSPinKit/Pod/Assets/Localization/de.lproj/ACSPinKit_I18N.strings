@@ -1,0 +1,44 @@
+//
+//  ACSPinKit_I18N.strings
+//  Created by Orlando Schäfer
+//
+//
+//  The MIT License (MIT)
+//
+//  Copyright (c) 2015 arconsis IT-Solutions GmbH <contact@arconsis.com>
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+
+"acspinkit.button.cancel.title" = "Abbrechen";
+"acspinkit.button.action.title" = "Menü";
+"acspinkit.button.delete.title" = "Löschen";
+
+"acspinkit.verify.header.text" = "Geben Sie Ihren Pincode ein:";
+"acspinkit.verify.alert.initial.text" = "Noch %ld Versuche.";
+"acspinkit.verify.alert.singular.text" = "Pincode falsch. Noch ein Versuch.";
+"acspinkit.verify.alert.plural.text" = "Pincode falsch. Noch %ld Versuche.";
+
+"acspinkit.change.header.text" = "Geben Sie Ihren aktuellen Pincode ein:";
+
+"acspinkit.create.header.initial.text" = "Geben Sie Ihren gewünschten Pincode ein:";
+"acspinkit.create.header.repeat.text" = "Pincode wiederholen:";
+"acspinkit.create.alert.text" = "Keine Übereinstimmung. Nochmal versuchen!";
+
+"acspinkit.touchid.reason.text" = "Bitte authentifizieren Sie sich.";
+"acspinkit.touchid.button.fallback.title" = "Pincode eingeben";

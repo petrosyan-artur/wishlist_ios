@@ -7,16 +7,40 @@
 //
 
 #import "AppDelegate.h"
+#import "PublicService.h"
+#import <LocalAuthentication/LocalAuthentication.h>
+#import "JKLLockScreenViewController.h"
+#import "Configuration.h"
+#import "Definitions.h"
+#import "WishUtils.h"
 
 @interface AppDelegate ()
-
+@property(nonatomic, retain) JKLLockScreenViewController * JKViewController;
 @end
 
 @implementation AppDelegate
-
+@synthesize JKViewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    [[PublicService sharedInstance] getConfigurationOnCompletion:^(NSDictionary *result, NSError *error) {
+       
+        if(result){
+            NSLog(@"%@", result);
+        }
+    }];
+    
+    [WishUtils configureNavigationBar];
+    [WishUtils configureTabBar];
+    
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:@"1234" forKey:kpinCode];
+    [defaults synchronize];
+    [self fillConfiguration];
+    [self passCodeCkeck];
+    
     return YES;
 }
 
@@ -93,7 +117,6 @@
     return _persistentStoreCoordinator;
 }
 
-
 - (NSManagedObjectContext *)managedObjectContext {
     // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
     if (_managedObjectContext != nil) {
@@ -122,6 +145,84 @@
             abort();
         }
     }
+}
+
+-(void)fillConfiguration{
+    
+    _configuration = [[Configuration alloc] init];
+    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+    self.configuration.pinCode = [defs objectForKey:kpinCode];
+}
+
+// JKLLockScreenViewController Delegate
+- (void)unlockWasSuccessfulLockScreenViewController:(JKLLockScreenViewController *)lockScreenViewController pincode:(NSString *)pincode{
+    
+}
+
+- (void)unlockWasSuccessfulLockScreenViewController:(JKLLockScreenViewController *)lockScreenViewController{
+    
+}
+
+- (void)unlockWasCancelledLockScreenViewController:(JKLLockScreenViewController *)lockScreenViewController{
+    
+}
+
+- (void)unlockWasFailureLockScreenViewController:(JKLLockScreenViewController *)lockScreenViewController{
+    
+}
+
+// JKLLockScreenViewController DataSource
+- (BOOL)lockScreenViewController:(JKLLockScreenViewController *)lockScreenViewController pincode:(NSString *)pincode{
+    
+    if([self.configuration.pinCode isEqualToString:pincode]){
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        UINavigationController *rootNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"RootNavigationController"];
+        self.window.rootViewController = rootNavigationController;
+        return YES;
+    }else{
+        
+        [WishUtils shakeAnimationWithViewComtroller:JKViewController];
+    }
+    
+    return NO;
+}
+
+- (BOOL)allowTouchIDLockScreenViewController:(JKLLockScreenViewController *)lockScreenViewController{
+ 
+    LAContext *myContext = [[LAContext alloc] init];
+    NSError *authError = nil;
+    NSString *myLocalizedReasonString = @"Authentication";
+    
+    if ([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+        [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                  localizedReason:myLocalizedReasonString
+                            reply:^(BOOL success, NSError *error) {
+                                if (success) {
+                                    // User authenticated successfully, take appropriate action
+                                    
+                                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                                    UINavigationController *rootNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"RootNavigationController"];
+                                    self.window.rootViewController = rootNavigationController;
+                                    
+                                } else {
+                                    // User did not authenticate successfully, look at error and take appropriate action
+                                }
+                            }];
+    } else {
+        // Could not evaluate policy; look at authError and present an appropriate message to user
+    }
+    return YES;
+}
+
+- (void) passCodeCkeck{
+ 
+    JKViewController = [[JKLLockScreenViewController alloc] initWithNibName:NSStringFromClass([JKLLockScreenViewController class]) bundle:nil];
+    [JKViewController setLockScreenMode:LockScreenModeNormal]; // enum { LockScreenModeNormal, LockScreenModeNew, LockScreenModeChange }
+    [JKViewController setDelegate:self];
+    [JKViewController setDataSource:self];
+    
+    self.window.rootViewController = JKViewController;
 }
 
 @end
