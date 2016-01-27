@@ -9,4 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 
+#define kmainScreenHeight [[UIScreen mainScreen] bounds].size.height
+#define kmainScreenWidth [[UIScreen mainScreen] bounds].size.width
+
 #define kpinCode @"pinCode"
+#define ktoken @"token"
+

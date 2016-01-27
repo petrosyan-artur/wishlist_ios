@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3B32C5CB931185FB9F014B98 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 462F61F299973CBFB81823B2 /* libPods.a */; };
+		6700DE111C58E33D00380CB1 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6700DE101C58E33D00380CB1 /* TPKeyboardAvoidingScrollView.m */; };
+		6700DE131C58E37B00380CB1 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6700DE121C58E37B00380CB1 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		6792E7BD1C52427F000DE98D /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6792E7BC1C52427F000DE98D /* LocalAuthentication.framework */; };
 		6792E7C01C52430A000DE98D /* WishUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6792E7BF1C52430A000DE98D /* WishUtils.m */; };
 		67BE60B01C48E80D0074BF7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BE60AF1C48E80D0074BF7C /* main.m */; };
@@ -25,8 +27,8 @@
 		67C443071C567FFE00B3311D /* WishSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C443061C567FFE00B3311D /* WishSearchViewController.m */; };
 		67C4430A1C56803E00B3311D /* LikedWishesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C443091C56803E00B3311D /* LikedWishesViewController.m */; };
 		67C4430E1C56806400B3311D /* MyWishesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C4430D1C56806400B3311D /* MyWishesViewController.m */; };
+		67C443151C578F3400B3311D /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C443141C578F3400B3311D /* SignUpViewController.m */; };
 		67C72FAB1C523D4500BE30F1 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C72FAA1C523D4400BE30F1 /* Configuration.m */; };
-		67ED91871C4CD21500829B7D /* GeneralService.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ED91841C4CD21500829B7D /* GeneralService.m */; };
 		67ED91881C4CD21500829B7D /* PrivateService.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ED91861C4CD21500829B7D /* PrivateService.m */; };
 		67ED918B1C4CD49100829B7D /* PublicService.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ED918A1C4CD49100829B7D /* PublicService.m */; };
 		67ED918F1C4D159700829B7D /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ED918E1C4D159700829B7D /* MainTabBarController.m */; };
@@ -52,6 +54,10 @@
 /* Begin PBXFileReference section */
 		462F61F299973CBFB81823B2 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		51EB699350C43C9EAEA969E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		6700DE0F1C58E33D00380CB1 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		6700DE101C58E33D00380CB1 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		6700DE121C58E37B00380CB1 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		6700DE141C58E43400380CB1 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
 		6792E7BC1C52427F000DE98D /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		6792E7BE1C52430A000DE98D /* WishUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WishUtils.h; sourceTree = "<group>"; };
 		6792E7BF1C52430A000DE98D /* WishUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WishUtils.m; sourceTree = "<group>"; };
@@ -84,11 +90,11 @@
 		67C443091C56803E00B3311D /* LikedWishesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikedWishesViewController.m; sourceTree = "<group>"; };
 		67C4430C1C56806400B3311D /* MyWishesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWishesViewController.h; sourceTree = "<group>"; };
 		67C4430D1C56806400B3311D /* MyWishesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWishesViewController.m; sourceTree = "<group>"; };
+		67C443131C578F3400B3311D /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		67C443141C578F3400B3311D /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		67C72FA91C523D4400BE30F1 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
 		67C72FAA1C523D4400BE30F1 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
 		67C72FAC1C523EB700BE30F1 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
-		67ED91831C4CD21500829B7D /* GeneralService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeneralService.h; sourceTree = "<group>"; };
-		67ED91841C4CD21500829B7D /* GeneralService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralService.m; sourceTree = "<group>"; };
 		67ED91851C4CD21500829B7D /* PrivateService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateService.h; sourceTree = "<group>"; };
 		67ED91861C4CD21500829B7D /* PrivateService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivateService.m; sourceTree = "<group>"; };
 		67ED91891C4CD49100829B7D /* PublicService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicService.h; sourceTree = "<group>"; };
@@ -134,6 +140,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		6700DE0E1C58E2A100380CB1 /* 3rd Part */ = {
+			isa = PBXGroup;
+			children = (
+				6700DE0F1C58E33D00380CB1 /* TPKeyboardAvoidingScrollView.h */,
+				6700DE101C58E33D00380CB1 /* TPKeyboardAvoidingScrollView.m */,
+				6700DE121C58E37B00380CB1 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+				6700DE141C58E43400380CB1 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+			);
+			path = "3rd Part";
+			sourceTree = "<group>";
+		};
 		67BE60A21C48E80D0074BF7C = {
 			isa = PBXGroup;
 			children = (
@@ -159,9 +176,10 @@
 		67BE60AD1C48E80D0074BF7C /* Wish */ = {
 			isa = PBXGroup;
 			children = (
+				67ED91821C4CD21500829B7D /* WebServiceAdapters */,
+				6700DE0E1C58E2A100380CB1 /* 3rd Part */,
 				67C72FA81C523CFF00BE30F1 /* Utils */,
 				67ED918C1C4D156F00829B7D /* ViewControllers */,
-				67ED91821C4CD21500829B7D /* WebServiceAdapters */,
 				67BE60B11C48E80D0074BF7C /* AppDelegate.h */,
 				67BE60B21C48E80D0074BF7C /* AppDelegate.m */,
 				67BE60B41C48E80D0074BF7C /* ViewController.h */,
@@ -207,6 +225,8 @@
 			children = (
 				67C442FE1C56692400B3311D /* CreateWishViewController.h */,
 				67C442FF1C56692400B3311D /* CreateWishViewController.m */,
+				67C443131C578F3400B3311D /* SignUpViewController.h */,
+				67C443141C578F3400B3311D /* SignUpViewController.m */,
 			);
 			path = CreateWishViewController;
 			sourceTree = "<group>";
@@ -241,8 +261,6 @@
 		67ED91821C4CD21500829B7D /* WebServiceAdapters */ = {
 			isa = PBXGroup;
 			children = (
-				67ED91831C4CD21500829B7D /* GeneralService.h */,
-				67ED91841C4CD21500829B7D /* GeneralService.m */,
 				67ED91851C4CD21500829B7D /* PrivateService.h */,
 				67ED91861C4CD21500829B7D /* PrivateService.m */,
 				67ED91891C4CD49100829B7D /* PublicService.h */,
@@ -454,13 +472,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67ED91871C4CD21500829B7D /* GeneralService.m in Sources */,
 				67C443041C567FD100B3311D /* WishListViewController.m in Sources */,
 				67C72FAB1C523D4500BE30F1 /* Configuration.m in Sources */,
 				67ED918B1C4CD49100829B7D /* PublicService.m in Sources */,
+				67C443151C578F3400B3311D /* SignUpViewController.m in Sources */,
 				67C443001C56692400B3311D /* CreateWishViewController.m in Sources */,
 				67C443071C567FFE00B3311D /* WishSearchViewController.m in Sources */,
 				67BE60BC1C48E80D0074BF7C /* Wish.xcdatamodeld in Sources */,
+				6700DE131C58E37B00380CB1 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				67C4430A1C56803E00B3311D /* LikedWishesViewController.m in Sources */,
 				67BE60B61C48E80D0074BF7C /* ViewController.m in Sources */,
 				67C442FC1C56394A00B3311D /* RootNavigationController.m in Sources */,
@@ -468,6 +487,7 @@
 				67C4430E1C56806400B3311D /* MyWishesViewController.m in Sources */,
 				67BE60B01C48E80D0074BF7C /* main.m in Sources */,
 				67ED918F1C4D159700829B7D /* MainTabBarController.m in Sources */,
+				6700DE111C58E33D00380CB1 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				6792E7C01C52430A000DE98D /* WishUtils.m in Sources */,
 				67ED91881C4CD21500829B7D /* PrivateService.m in Sources */,
 			);

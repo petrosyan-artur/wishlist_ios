@@ -8,6 +8,8 @@
 
 #import "MainTabBarController.h"
 #import "CreateWishViewController.h"
+#import "AppDelegate.h"
+#import "SignUpViewController.h"
 
 @interface MainTabBarController ()
 
@@ -46,10 +48,19 @@
 - (IBAction)openNewWish:(UIButton *)sender{
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    CreateWishViewController *createWishViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateWishViewController"];
+    UINavigationController *createWishNavigationViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateWishNavigationController"];
     
-    [self.navigationController showDetailViewController:createWishViewController sender:self];
-   // [self.navigationController pushViewController:createWishViewController animated:YES];
+    AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    if(appDelgate.configuration.token && ![appDelgate.configuration.token isEqualToString:@""]){
+        
+        CreateWishViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateWishViewController"];
+        createWishNavigationViewController.viewControllers = @[rootViewController];
+    }else{
+        
+        SignUpViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SignUpViewController"];
+        createWishNavigationViewController.viewControllers = @[rootViewController];
+    }
+    [self.navigationController showDetailViewController:createWishNavigationViewController sender:self];
 }
 
 @end

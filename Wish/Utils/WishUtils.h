@@ -14,5 +14,7 @@
 + (void) shakeAnimationWithViewComtroller:(UIViewController *) vController;
 + (void) configureTabBar;
 + (void) configureNavigationBar;
++ (void) showErrorAlert;
++ (void) showErrorAlertWithTitle:(NSString *) title AndText:(NSString *)text;
 
 @end

@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^getConfigurationCompletionHandler)(NSDictionary* result, NSError *error);
+typedef void (^getConfigurationCompletionHandler)(NSDictionary* result, BOOL isSucess);
 typedef void (^authenticateCompletionHandler)(NSDictionary* result, NSError *error);
+typedef void (^getUserNameCompletionHandler)(NSDictionary *result, BOOL isSucess);
+typedef void (^registerUserCompletionHandler)(NSDictionary *result, BOOL isSucess);
 
 @interface PublicService : NSObject
 
@@ -17,5 +19,7 @@ typedef void (^authenticateCompletionHandler)(NSDictionary* result, NSError *err
 
 - (void) getConfigurationOnCompletion:(getConfigurationCompletionHandler)completionHandler;
 - (void) authenticate:(authenticateCompletionHandler)completionHandler;
+- (void) getUserNameOnCompletion:(getUserNameCompletionHandler)completionHandler;
+- (void) registerUserWithUserName:(NSString *)username Password:(NSString *)password Password2:(NSString *)password2 OnCompletion:(registerUserCompletionHandler)completionHandler;
 
 @end

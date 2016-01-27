@@ -25,10 +25,13 @@
     // Override point for customization after application launch.
     
     
-    [[PublicService sharedInstance] getConfigurationOnCompletion:^(NSDictionary *result, NSError *error) {
+    [[PublicService sharedInstance] getConfigurationOnCompletion:^(NSDictionary *result, BOOL isSucess) {
        
-        if(result){
+        if(isSucess){
             NSLog(@"%@", result);
+        }else{
+            
+            [WishUtils showErrorAlertWithTitle:@"" AndText:[result objectForKey:@"message"]];
         }
     }];
     
@@ -152,6 +155,7 @@
     _configuration = [[Configuration alloc] init];
     NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
     self.configuration.pinCode = [defs objectForKey:kpinCode];
+    self.configuration.token = [defs objectForKey:ktoken];
 }
 
 // JKLLockScreenViewController Delegate

@@ -11,5 +11,6 @@
 @interface Configuration : NSObject
 
 @property (nonatomic, retain) NSString* pinCode;
+@property (nonatomic, retain) NSString* token;
 
 @end
