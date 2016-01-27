@@ -25,7 +25,8 @@ static const CGFloat LSNContextSetLineWidth = 0.8f;
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGColorRef colorRef  = [self tintColor].CGColor;
+    UIColor *color = [UIColor colorWithRed:0 green:110/255.0f blue:145/255.0f alpha:1];
+    CGColorRef colorRef  = color.CGColor;//[self tintColor].CGColor;
     UIControlState state = [self state];
 
     CGContextSetLineWidth(context, LSNContextSetLineWidth);
