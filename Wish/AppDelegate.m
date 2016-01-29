@@ -13,6 +13,7 @@
 #import "Configuration.h"
 #import "Definitions.h"
 #import "WishUtils.h"
+#import "PrivateService.h"
 
 @interface AppDelegate ()
 @property(nonatomic, retain) JKLLockScreenViewController * JKViewController;
@@ -20,15 +21,18 @@
 
 @implementation AppDelegate
 @synthesize JKViewController;
+@synthesize webConfiguration;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    
+    webConfiguration = [[WebConfiguration alloc] init];
     [[PublicService sharedInstance] getConfigurationOnCompletion:^(NSDictionary *result, BOOL isSucess) {
        
         if(isSucess){
-            NSLog(@"%@", result);
+        
+            webConfiguration.colorsArray = [[[result objectForKey:@"configs"] objectForKey:@"decorations"] objectForKey:@"colors"];
+            webConfiguration.maxSymbolsCount = [[result objectForKey:@"max_symbols"] integerValue];
         }else{
             
             [WishUtils showErrorAlertWithTitle:@"" AndText:[result objectForKey:@"message"]];
@@ -43,6 +47,19 @@
     [defaults synchronize];
     [self fillConfiguration];
     [self passCodeCkeck];
+    
+    if (self.configuration.token && ![self.configuration.token isEqualToString:@""]) {
+        
+        [[PrivateService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
+            
+            if(isSucess){
+                
+                NSLog(@"%@", result);
+            }else{
+                
+            }
+        }];
+    }
     
     return YES;
 }

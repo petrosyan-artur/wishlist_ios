@@ -85,18 +85,22 @@ static AFHTTPRequestOperationManager *manager;
     }];
 }
 
-- (void) authenticate:(authenticateCompletionHandler)completionHandler{
+- (void) authenticateWithUsername:(NSString *)username  AndPassword:(NSString *)password OnCompletion:(authenticateCompletionHandler)completionHandler{
 
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    NSString *contString = [NSString stringWithFormat:@"%@/users", publicURLString];
-//    
-//    [manager GET:confString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"JSON: %@", responseObject);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error: %@", error);
-//    }];
+    NSString *contString = [NSString stringWithFormat:@"%@/authenticate", publicURLString];
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            username, @"username",
+                            password, @"password",
+                            nil];
+    
+    [manager POST:contString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
 }
 
 @end

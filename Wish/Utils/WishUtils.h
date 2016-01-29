@@ -16,5 +16,6 @@
 + (void) configureNavigationBar;
 + (void) showErrorAlert;
 + (void) showErrorAlertWithTitle:(NSString *) title AndText:(NSString *)text;
++ (UIColor *)getColorFromString:(NSString *)colorString;
 
 @end

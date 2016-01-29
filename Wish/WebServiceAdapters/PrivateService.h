@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PrivateService : NSObject{
-    
-   // NSString *BaseURLString;
-}
+typedef void (^getWishesCompletionHandler)(NSDictionary *result, BOOL isSucess);
+
+@interface PrivateService : NSObject
 
 +(PrivateService *)sharedInstance;
 
+- (void) getWishesOnCompletion:(getWishesCompletionHandler)completionHandler;
 
 @end

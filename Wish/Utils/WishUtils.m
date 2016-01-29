@@ -41,6 +41,8 @@
     [[UINavigationBar appearance] setBarTintColor:navColor];
     [[UINavigationBar appearance] setTranslucent:NO];
     [[UITabBar appearance] setBarTintColor:navColor];
+    
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[UIImage imageNamed:@"back_button.png"] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 }
 
 + (void) showErrorAlert{
@@ -134,6 +136,18 @@
     } while (isPresenting);
     
     return controller;
+}
+
++ (UIColor *)getColorFromString:(NSString *)colorString{
+    
+    NSArray *colorValueArray = [colorString componentsSeparatedByString:@","];
+    
+    int rValue = [[colorValueArray objectAtIndex:0] intValue];
+    int gValue = [[colorValueArray objectAtIndex:1] intValue];
+    int bValue = [[colorValueArray objectAtIndex:2] intValue];
+    
+    UIColor *color = [UIColor colorWithRed:rValue/255.0f green:gValue/255.0f blue:bValue/255.0f alpha:1];
+    return color;
 }
 
 @end

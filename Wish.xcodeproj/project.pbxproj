@@ -10,6 +10,9 @@
 		3B32C5CB931185FB9F014B98 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 462F61F299973CBFB81823B2 /* libPods.a */; };
 		6700DE111C58E33D00380CB1 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6700DE101C58E33D00380CB1 /* TPKeyboardAvoidingScrollView.m */; };
 		6700DE131C58E37B00380CB1 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6700DE121C58E37B00380CB1 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		6700DE171C5B548900380CB1 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6700DE161C5B548900380CB1 /* SignInViewController.m */; };
+		6700DE1B1C5B927000380CB1 /* DecorationObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6700DE1A1C5B927000380CB1 /* DecorationObject.m */; };
+		6700DE241C5BA6D800380CB1 /* WebConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6700DE231C5BA6D800380CB1 /* WebConfiguration.m */; };
 		6792E7BD1C52427F000DE98D /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6792E7BC1C52427F000DE98D /* LocalAuthentication.framework */; };
 		6792E7C01C52430A000DE98D /* WishUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6792E7BF1C52430A000DE98D /* WishUtils.m */; };
 		67BE60B01C48E80D0074BF7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BE60AF1C48E80D0074BF7C /* main.m */; };
@@ -58,6 +61,12 @@
 		6700DE101C58E33D00380CB1 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		6700DE121C58E37B00380CB1 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		6700DE141C58E43400380CB1 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		6700DE151C5B548900380CB1 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		6700DE161C5B548900380CB1 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		6700DE191C5B927000380CB1 /* DecorationObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecorationObject.h; sourceTree = "<group>"; };
+		6700DE1A1C5B927000380CB1 /* DecorationObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecorationObject.m; sourceTree = "<group>"; };
+		6700DE221C5BA6D800380CB1 /* WebConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebConfiguration.h; sourceTree = "<group>"; };
+		6700DE231C5BA6D800380CB1 /* WebConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebConfiguration.m; sourceTree = "<group>"; };
 		6792E7BC1C52427F000DE98D /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		6792E7BE1C52430A000DE98D /* WishUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WishUtils.h; sourceTree = "<group>"; };
 		6792E7BF1C52430A000DE98D /* WishUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WishUtils.m; sourceTree = "<group>"; };
@@ -151,6 +160,15 @@
 			path = "3rd Part";
 			sourceTree = "<group>";
 		};
+		6700DE181C5B923D00380CB1 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				6700DE191C5B927000380CB1 /* DecorationObject.h */,
+				6700DE1A1C5B927000380CB1 /* DecorationObject.m */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
 		67BE60A21C48E80D0074BF7C = {
 			isa = PBXGroup;
 			children = (
@@ -176,6 +194,7 @@
 		67BE60AD1C48E80D0074BF7C /* Wish */ = {
 			isa = PBXGroup;
 			children = (
+				6700DE181C5B923D00380CB1 /* Objects */,
 				67ED91821C4CD21500829B7D /* WebServiceAdapters */,
 				6700DE0E1C58E2A100380CB1 /* 3rd Part */,
 				67C72FA81C523CFF00BE30F1 /* Utils */,
@@ -227,6 +246,8 @@
 				67C442FF1C56692400B3311D /* CreateWishViewController.m */,
 				67C443131C578F3400B3311D /* SignUpViewController.h */,
 				67C443141C578F3400B3311D /* SignUpViewController.m */,
+				6700DE151C5B548900380CB1 /* SignInViewController.h */,
+				6700DE161C5B548900380CB1 /* SignInViewController.m */,
 			);
 			path = CreateWishViewController;
 			sourceTree = "<group>";
@@ -254,6 +275,8 @@
 				67C72FAA1C523D4400BE30F1 /* Configuration.m */,
 				6792E7BE1C52430A000DE98D /* WishUtils.h */,
 				6792E7BF1C52430A000DE98D /* WishUtils.m */,
+				6700DE221C5BA6D800380CB1 /* WebConfiguration.h */,
+				6700DE231C5BA6D800380CB1 /* WebConfiguration.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -472,6 +495,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6700DE1B1C5B927000380CB1 /* DecorationObject.m in Sources */,
+				6700DE171C5B548900380CB1 /* SignInViewController.m in Sources */,
 				67C443041C567FD100B3311D /* WishListViewController.m in Sources */,
 				67C72FAB1C523D4500BE30F1 /* Configuration.m in Sources */,
 				67ED918B1C4CD49100829B7D /* PublicService.m in Sources */,
@@ -484,6 +509,7 @@
 				67BE60B61C48E80D0074BF7C /* ViewController.m in Sources */,
 				67C442FC1C56394A00B3311D /* RootNavigationController.m in Sources */,
 				67BE60B31C48E80D0074BF7C /* AppDelegate.m in Sources */,
+				6700DE241C5BA6D800380CB1 /* WebConfiguration.m in Sources */,
 				67C4430E1C56806400B3311D /* MyWishesViewController.m in Sources */,
 				67BE60B01C48E80D0074BF7C /* main.m in Sources */,
 				67ED918F1C4D159700829B7D /* MainTabBarController.m in Sources */,

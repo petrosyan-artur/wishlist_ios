@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 #import "JKLLockScreenViewController.h"
 #import "Configuration.h"
+#import "WebConfiguration.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, JKLLockScreenViewControllerDataSource, JKLLockScreenViewControllerDelegate>
 
@@ -24,6 +25,6 @@
 
 
 @property (nonatomic, strong) Configuration *configuration;
-
+@property (nonatomic, strong) WebConfiguration *webConfiguration;
 @end
 

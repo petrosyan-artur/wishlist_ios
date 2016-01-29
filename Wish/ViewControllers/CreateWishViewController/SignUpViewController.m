@@ -13,6 +13,7 @@
 #import "TPKeyboardAvoidingScrollView.h"
 
 @interface SignUpViewController ()
+
 @property (strong, nonatomic) IBOutlet UILabel *userNameLabel;
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (strong, nonatomic) IBOutlet UITextField *repeatPasswordTextField;
