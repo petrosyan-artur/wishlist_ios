@@ -17,5 +17,6 @@
 + (void) showErrorAlert;
 + (void) showErrorAlertWithTitle:(NSString *) title AndText:(NSString *)text;
 + (UIColor *)getColorFromString:(NSString *)colorString;
++ (BOOL) isEqualFisrtColor:(UIColor *) firstColor AndSecondColor:(UIColor *) secondColor;
 
 @end

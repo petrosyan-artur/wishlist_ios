@@ -31,7 +31,8 @@
        
         if(isSucess){
         
-            webConfiguration.colorsArray = [[[result objectForKey:@"configs"] objectForKey:@"decorations"] objectForKey:@"colors"];
+            NSArray *colorsArray = [[[result objectForKey:@"configs"] objectForKey:@"decorations"] objectForKey:@"colors"];
+            webConfiguration.colorsStringArray = colorsArray;
             webConfiguration.maxSymbolsCount = [[result objectForKey:@"max_symbols"] integerValue];
         }else{
             
@@ -173,6 +174,8 @@
     NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
     self.configuration.pinCode = [defs objectForKey:kpinCode];
     self.configuration.token = [defs objectForKey:ktoken];
+    NSData *encodedObject = [defs objectForKey:kbgDefaultColor];
+    self.configuration.bgDefaultColor = [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
 }
 
 // JKLLockScreenViewController Delegate

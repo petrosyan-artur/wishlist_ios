@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface WebConfiguration : NSObject
 
-@property (nonatomic, strong) NSArray *colorsArray;
+@property (nonatomic, strong) NSArray *colorsStringArray;
 @property (nonatomic, assign) NSInteger maxSymbolsCount;
+@property (nonatomic, strong, readonly) NSArray *colorsArray;
 
 @end

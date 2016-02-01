@@ -150,4 +150,9 @@
     return color;
 }
 
++ (BOOL) isEqualFisrtColor:(UIColor *) firstColor AndSecondColor:(UIColor *) secondColor
+{
+    return CGColorEqualToColor(firstColor.CGColor, secondColor.CGColor);
+}
+
 @end

@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ColorDecorationCellObject.h"
 
 @interface Configuration : NSObject
 
 @property (nonatomic, retain) NSString* pinCode;
 @property (nonatomic, retain) NSString* token;
+@property (nonatomic, retain) ColorDecorationCellObject *bgDefaultColor;
 
 @end

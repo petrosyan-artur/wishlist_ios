@@ -78,11 +78,20 @@
 
 - (IBAction)signUpButton:(UIButton *)sender {
     
-    if([self.passwordTextField.text isEqualToString:self.repeatPasswordTextField.text]){
+    if([self.passwordTextField.text isEqualToString:self.repeatPasswordTextField.text] && ![self.passwordTextField.text isEqualToString:@""]){
         
-
+        UIView *transparent = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, kmainScreenWidth, kmainScreenHeight)];
+        transparent.backgroundColor = [UIColor blackColor];
+        transparent.alpha = 0.8f;
+        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        indicator.center =CGPointMake(160.0f, 200.0f);
+        [transparent addSubview:indicator];
+        [indicator startAnimating];
+        [self.view addSubview:transparent];
+        
         [[PublicService sharedInstance] registerUserWithUserName:self.userNameLabel.text Password:self.passwordTextField.text Password2:self.repeatPasswordTextField.text OnCompletion:^(NSDictionary *result, BOOL isSucess) {
            
+            [transparent removeFromSuperview];
             if(isSucess){
                 
                 NSString *token = [result objectForKey:@"token"];

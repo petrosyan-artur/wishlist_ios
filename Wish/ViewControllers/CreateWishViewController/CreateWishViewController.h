@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CreateWishViewController : UIViewController
+@interface CreateWishViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate>
 
 @end
