@@ -14,6 +14,7 @@
 #import "Configuration.h"
 #import "Definitions.h"
 #import "WishUtils.h"
+#import "UIView+Toast.h"
 
 @interface CreateWishViewController ()
 
@@ -194,6 +195,19 @@
 - (void)keyboardWillHide:(NSNotification *)notification{
     
     self.decorationViewButtomConstraint.constant = 0;
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+    
+    UIWindow *window = [UIApplication sharedApplication].windows.lastObject;
+    if(textView.text.length > appDelgate.webConfiguration.maxSymbolsCount){
+        
+        NSString *toastString = @"No more characters allowed!";
+        [window makeToast:toastString duration:3.0 position:CSToastPositionBottom];
+        NSString *subString = [textView.text substringToIndex:appDelgate.webConfiguration.maxSymbolsCount];
+        textView.text = subString;
+    }
+    
 }
 
 @end

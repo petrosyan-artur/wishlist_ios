@@ -34,6 +34,7 @@
 		67C4430E1C56806400B3311D /* MyWishesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C4430D1C56806400B3311D /* MyWishesViewController.m */; };
 		67C443151C578F3400B3311D /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C443141C578F3400B3311D /* SignUpViewController.m */; };
 		67C72FAB1C523D4500BE30F1 /* Configuration.m in Sources */ = {isa = PBXBuildFile; fileRef = 67C72FAA1C523D4400BE30F1 /* Configuration.m */; };
+		67DEB5701C609CE200ADB66A /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 67DEB56F1C609CE200ADB66A /* UIView+Toast.m */; };
 		67ED91881C4CD21500829B7D /* PrivateService.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ED91861C4CD21500829B7D /* PrivateService.m */; };
 		67ED918B1C4CD49100829B7D /* PublicService.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ED918A1C4CD49100829B7D /* PublicService.m */; };
 		67ED918F1C4D159700829B7D /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ED918E1C4D159700829B7D /* MainTabBarController.m */; };
@@ -110,6 +111,8 @@
 		67C72FA91C523D4400BE30F1 /* Configuration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configuration.h; sourceTree = "<group>"; };
 		67C72FAA1C523D4400BE30F1 /* Configuration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configuration.m; sourceTree = "<group>"; };
 		67C72FAC1C523EB700BE30F1 /* Definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Definitions.h; sourceTree = "<group>"; };
+		67DEB56E1C609CE200ADB66A /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		67DEB56F1C609CE200ADB66A /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		67ED91851C4CD21500829B7D /* PrivateService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrivateService.h; sourceTree = "<group>"; };
 		67ED91861C4CD21500829B7D /* PrivateService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrivateService.m; sourceTree = "<group>"; };
 		67ED91891C4CD49100829B7D /* PublicService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicService.h; sourceTree = "<group>"; };
@@ -211,6 +214,7 @@
 		67BE60AD1C48E80D0074BF7C /* Wish */ = {
 			isa = PBXGroup;
 			children = (
+				67DEB56D1C609CBB00ADB66A /* Categories */,
 				6700DE251C5F629100380CB1 /* CustomCells */,
 				6700DE181C5B923D00380CB1 /* Objects */,
 				67ED91821C4CD21500829B7D /* WebServiceAdapters */,
@@ -297,6 +301,15 @@
 				6700DE231C5BA6D800380CB1 /* WebConfiguration.m */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		67DEB56D1C609CBB00ADB66A /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				67DEB56E1C609CE200ADB66A /* UIView+Toast.h */,
+				67DEB56F1C609CE200ADB66A /* UIView+Toast.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		67ED91821C4CD21500829B7D /* WebServiceAdapters */ = {
@@ -513,6 +526,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67DEB5701C609CE200ADB66A /* UIView+Toast.m in Sources */,
 				6700DE1B1C5B927000380CB1 /* DecorationObject.m in Sources */,
 				6700DE171C5B548900380CB1 /* SignInViewController.m in Sources */,
 				67C443041C567FD100B3311D /* WishListViewController.m in Sources */,
