@@ -33,7 +33,7 @@
         
             NSArray *colorsArray = [[[result objectForKey:@"configs"] objectForKey:@"decorations"] objectForKey:@"colors"];
             webConfiguration.colorsStringArray = colorsArray;
-            webConfiguration.maxSymbolsCount = [[result objectForKey:@"max_symbols"] integerValue];
+            webConfiguration.maxSymbolsCount = [[[result objectForKey:@"configs"] objectForKey:@"max_symbols"] integerValue];
         }else{
             
             [WishUtils showErrorAlertWithTitle:@"" AndText:[result objectForKey:@"message"]];

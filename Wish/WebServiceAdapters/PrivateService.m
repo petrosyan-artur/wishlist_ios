@@ -42,11 +42,34 @@ static AFHTTPRequestOperationManager *manager;
     return sharedInstance;
 }
 
--(void) getWishesOnCompletion:(getWishesCompletionHandler)completionHandler{
+- (void) getWishesOnCompletion:(getWishesCompletionHandler)completionHandler{
     
     NSString *contString = [NSString stringWithFormat:@"%@/wishes", privateURLString];
     
     [manager GET:contString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
+- (void) postWishWithContent:(NSString *)content Color:(NSString *)color AndImage:(NSString *)imageURL OnCompletion:(postWishCompletionHandler)completionHandler{
+    
+    NSString *contString = [NSString stringWithFormat:@"%@/wishes", privateURLString];
+    
+    NSDictionary *colorDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    color, @"color",
+                                    imageURL, @"image",
+                                    nil];
+    
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                                content, @"content",
+                                colorDict, @"decoration",
+                                nil];
+    
+    [manager POST:contString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

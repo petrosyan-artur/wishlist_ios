@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 
 typedef void (^getWishesCompletionHandler)(NSDictionary *result, BOOL isSucess);
+typedef void (^postWishCompletionHandler)(NSDictionary *result, BOOL isSucess);
 
 @interface PrivateService : NSObject
 
 +(PrivateService *)sharedInstance;
 
 - (void) getWishesOnCompletion:(getWishesCompletionHandler)completionHandler;
+- (void) postWishWithContent:(NSString *)content Color:(NSString *)color AndImage:(NSString *)imageURL OnCompletion:(postWishCompletionHandler)completionHandler;
 
 @end

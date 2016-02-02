@@ -10,11 +10,11 @@
 #import "ColorDecorationCellObject.h"
 #import "AppDelegate.h"
 #import "ColorDecorationCollectionViewCell.h"
-#import "ColorDecorationCellObject.h"
 #import "Configuration.h"
 #import "Definitions.h"
 #import "WishUtils.h"
 #import "UIView+Toast.h"
+#import "PrivateService.h"
 
 @interface CreateWishViewController ()
 
@@ -34,6 +34,7 @@
     AppDelegate* appDelgate;
     NSMutableArray *colorsBGArray;
     UIColor *defaultColor;
+    NSString *defaultColorString;
 }
 
 - (void)viewDidLoad {
@@ -48,23 +49,32 @@
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     
     colorsBGArray = [[NSMutableArray alloc] init];
+    int i = 0;
     for (UIColor *color in appDelgate.webConfiguration.colorsArray) {
         
         ColorDecorationCellObject *colorObj = [[ColorDecorationCellObject alloc] init];
         colorObj.bgColor = color;
+        colorObj.bgColorString = [appDelgate.webConfiguration.colorsStringArray objectAtIndex:i++];
         [colorsBGArray addObject:colorObj];
     }
     
     if(appDelgate.configuration.bgDefaultColor){
        
         defaultColor = appDelgate.configuration.bgDefaultColor.bgColor;
+        defaultColorString = appDelgate.configuration.bgDefaultColor.bgColorString;
         [self.wishTextField setBackgroundColor:defaultColor];
     }else{
         
         ColorDecorationCellObject *colorObj = [colorsBGArray objectAtIndex:0];
         defaultColor = colorObj.bgColor;
+        defaultColorString = colorObj.bgColorString;
         [self.wishTextField setBackgroundColor:defaultColor];
         appDelgate.configuration.bgDefaultColor.bgColor = defaultColor;
+        
+        NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:colorObj];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:encodedObject forKey:kbgDefaultColor];
+        [defaults synchronize];
     }
     [self.colorsCollectionView reloadData];
 }
@@ -112,7 +122,26 @@
 
 - (IBAction)sendWish:(UIButton *)sender{
     
+    UIView *transparent = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, kmainScreenWidth, kmainScreenHeight)];
+    transparent.backgroundColor = [UIColor blackColor];
+    transparent.alpha = 0.8f;
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicator.center =CGPointMake(160.0f, 200.0f);
+    [transparent addSubview:indicator];
+    [indicator startAnimating];
+    [self.view addSubview:transparent];
     
+    [[PrivateService sharedInstance] postWishWithContent:self.wishTextField.text Color:defaultColorString AndImage:@"" OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+        
+        [indicator removeFromSuperview];
+        if(isSucess){
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }else{
+            
+            [WishUtils showErrorAlertWithTitle:@"" AndText:[result objectForKey:@"message"]];
+        }
+    }];
 }
 
 - (IBAction)closeButtonAction:(UIButton *)sender{
@@ -178,6 +207,7 @@
     
     appDelgate.configuration.bgDefaultColor = colorObj;
     defaultColor = colorObj.bgColor;
+    defaultColorString = colorObj.bgColorString;
     [self.colorsCollectionView reloadData];
 }
 

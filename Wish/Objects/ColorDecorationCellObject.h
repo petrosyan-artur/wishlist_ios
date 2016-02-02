@@ -12,5 +12,6 @@
 @interface ColorDecorationCellObject : NSObject
 
 @property (nonatomic, strong) UIColor *bgColor;
+@property (nonatomic, strong) NSString *bgColorString;
 
 @end
