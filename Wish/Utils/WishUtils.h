@@ -22,5 +22,8 @@
 + (BOOL)isToday:(NSDate *)compareDate;
 + (NSDate *)getDateFromString:(NSString *) dateString;
 + (void) getWishes;
++ (UIViewController*) getTopMostViewController;
++ (BOOL) isAuthenticated;
++ (void) openLoginPage;
 
 @end

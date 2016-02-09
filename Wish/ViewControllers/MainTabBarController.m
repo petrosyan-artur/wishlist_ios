@@ -10,6 +10,7 @@
 #import "CreateWishViewController.h"
 #import "AppDelegate.h"
 #import "SignUpViewController.h"
+#import "WishUtils.h"
 
 @interface MainTabBarController ()
 
@@ -50,8 +51,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     UINavigationController *createWishNavigationViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateWishNavigationController"];
     
-    AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    if(appDelgate.configuration.token && ![appDelgate.configuration.token isEqualToString:@""]){
+    if([WishUtils isAuthenticated]){
         
         CreateWishViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateWishViewController"];
         createWishNavigationViewController.viewControllers = @[rootViewController];

@@ -13,13 +13,13 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.bgColor forKey:@"bgColor"];
-    [aCoder encodeObject:self.bgColor forKey:@"bgColorString"];
+    [aCoder encodeObject:self.bgColorString forKey:@"bgColorString"];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     if(self = [super init]){
         self.bgColor = [aDecoder decodeObjectForKey:@"bgColor"];
-        self.bgColor = [aDecoder decodeObjectForKey:@"bgColorString"];
+        self.bgColorString = [aDecoder decodeObjectForKey:@"bgColorString"];
     }
     return self;
 }

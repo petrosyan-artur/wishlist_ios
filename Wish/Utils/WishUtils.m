@@ -11,6 +11,7 @@
 #import "PrivateService.h"
 #import "WishObject.h"
 #import "AppDelegate.h"
+#import "SignUpViewController.h"
 
 @implementation WishUtils
 
@@ -207,7 +208,7 @@
     
     AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     appDelgate.wishArray = [[NSMutableArray alloc] init];
-    
+   // [appDelgate.wishArray removeAllObjects];
     if (appDelgate.configuration.token && ![appDelgate.configuration.token isEqualToString:@""]) {
         
         [[PrivateService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
@@ -230,6 +231,8 @@
                     wish.userName = [wishDict objectForKey:@"username"];
                     
                     [appDelgate.wishArray addObject:wish];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"getWishesNotification" object:self];
                 }
             }else{
                 
@@ -251,12 +254,13 @@
                     wish.decoration.colorString = [decorationDict valueForKey:@"color"];
                     wish.decoration.imageURL = [decorationDict objectForKey:@"image"];
                     wish.isActive = [[wishDict objectForKey:@"isActive"] boolValue];
-                    //wish.amILike = [[wishDict objectForKey:@"liked"] boolValue];
                     wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
                     wish.userID = [wishDict objectForKey:@"userId"];
                     wish.userName = [wishDict objectForKey:@"username"];
                     
                     [appDelgate.wishArray addObject:wish];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"getWishesNotification" object:self];
                 }
             }else{
                 
@@ -264,4 +268,25 @@
         }];
     }
 }
+
++ (BOOL) isAuthenticated {
+    
+    AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    if(appDelgate.configuration.token && ![appDelgate.configuration.token isEqualToString:@""]){
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
++ (void) openLoginPage{
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    UINavigationController *createWishNavigationViewController = [storyboard instantiateViewControllerWithIdentifier:@"CreateWishNavigationController"];
+    SignUpViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"SignUpViewController"];
+    createWishNavigationViewController.viewControllers = @[rootViewController];
+    UIViewController *top = [WishUtils getTopMostViewController];
+    [top showDetailViewController:createWishNavigationViewController sender:self];
+}
+
 @end

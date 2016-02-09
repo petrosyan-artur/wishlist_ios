@@ -24,6 +24,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveGetWishesNotification:)
+                                                 name:@"getWishesNotification"
+                                               object:nil];
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:YES];
+    [WishUtils getWishes];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
@@ -34,6 +45,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) receiveGetWishesNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"getWishesNotification"]){
+        [self.wishListTableView reloadData];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{

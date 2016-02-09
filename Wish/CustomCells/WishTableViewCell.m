@@ -8,6 +8,8 @@
 
 #import "WishTableViewCell.h"
 #import "Definitions.h"
+#import "SignUpViewController.h"
+#import "WishUtils.h"
 
 @implementation WishTableViewCell
 
@@ -23,6 +25,13 @@
 
 - (IBAction)likeButtonAction:(UIButton *)sender {
     
+    if([WishUtils isAuthenticated]){
+
+        
+    }else{
+        
+        [WishUtils openLoginPage];
+    }
 }
 
 - (void) setLikeButtonState:(BOOL) amILike{
