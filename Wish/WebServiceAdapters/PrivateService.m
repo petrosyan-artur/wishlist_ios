@@ -64,10 +64,10 @@ static AFHTTPRequestOperationManager *manager;
                                     imageURL, @"image",
                                     nil];
     
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                content, @"content",
-                                colorDict, @"decoration",
-                                nil];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            content, @"content",
+                            colorDict, @"decoration",
+                            nil];
     
     [manager POST:contString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);

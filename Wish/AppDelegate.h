@@ -26,5 +26,6 @@
 
 @property (nonatomic, strong) Configuration *configuration;
 @property (nonatomic, strong) WebConfiguration *webConfiguration;
+@property (nonatomic, strong) NSMutableArray *wishArray;
 @end
 

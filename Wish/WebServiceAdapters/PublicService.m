@@ -103,4 +103,17 @@ static AFHTTPRequestOperationManager *manager;
     }];
 }
 
+- (void) getWishesOnCompletion:(getWishesCompletionHandler)completionHandler{
+    
+    NSString *contString = [NSString stringWithFormat:@"%@/wishes", publicURLString];
+    
+    [manager GET:contString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
 @end

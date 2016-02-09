@@ -18,5 +18,9 @@
 + (void) showErrorAlertWithTitle:(NSString *) title AndText:(NSString *)text;
 + (UIColor *)getColorFromString:(NSString *)colorString;
 + (BOOL) isEqualFisrtColor:(UIColor *) firstColor AndSecondColor:(UIColor *) secondColor;
++ (NSString *)setRightDateFormat:(NSDate *) compareDate;
++ (BOOL)isToday:(NSDate *)compareDate;
++ (NSDate *)getDateFromString:(NSString *) dateString;
++ (void) getWishes;
 
 @end

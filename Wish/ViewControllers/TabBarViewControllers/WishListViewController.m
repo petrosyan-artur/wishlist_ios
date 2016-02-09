@@ -7,16 +7,28 @@
 //
 
 #import "WishListViewController.h"
+#import "AppDelegate.h"
+#import "WishTableViewCell.h"
+#import "WishObject.h"
+#import "WishUtils.h"
+#import "Definitions.h"
 
 @interface WishListViewController ()
 
 @end
 
-@implementation WishListViewController
+@implementation WishListViewController{
+    AppDelegate* appDelgate;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+}
+
+- (void) viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +36,45 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index{
+    
+    return 1;
 }
-*/
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return appDelgate.wishArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *simpleTableIdentifier = @"WishTableViewCell";
+    WishObject *wish = [appDelgate.wishArray objectAtIndex:indexPath.row];
+    
+    WishTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    
+    if (cell == nil) {
+        cell = [[WishTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+    }
+    
+    cell.usernameLabel.text = wish.userName;
+    NSString *wishDateString = [WishUtils setRightDateFormat:wish.creationDate];
+    cell.creationDateLabel.text = wishDateString;
+    cell.contentLabel.text = wish.content;
+    UIColor *bgColor = [WishUtils getColorFromString:wish.decoration.colorString];
+    [cell.contView setBackgroundColor:bgColor];
+    
+    cell.likesCountLabel.text = [NSString stringWithFormat:@"%d", wish.likesCount];
+    [cell setLikeLabelWithCount:wish.likesCount];
+    
+    [cell setLikeButtonState:wish.amILike];
+    
+    if (indexPath.row == [appDelgate.wishArray count] - 1)
+    {
+       // [self launchReload];
+    }
+    
+    return cell;
+}
 
 @end

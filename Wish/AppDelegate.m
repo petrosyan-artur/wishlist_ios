@@ -14,6 +14,7 @@
 #import "Definitions.h"
 #import "WishUtils.h"
 #import "PrivateService.h"
+#import "WishObject.h"
 
 @interface AppDelegate ()
 @property(nonatomic, retain) JKLLockScreenViewController * JKViewController;
@@ -49,18 +50,7 @@
     [self fillConfiguration];
     [self passCodeCkeck];
     
-    if (self.configuration.token && ![self.configuration.token isEqualToString:@""]) {
-        
-        [[PrivateService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
-            
-            if(isSucess){
-                
-                NSLog(@"%@", result);
-            }else{
-                
-            }
-        }];
-    }
+    [WishUtils getWishes];
     
     return YES;
 }

@@ -7,6 +7,10 @@
 //
 
 #import "WishUtils.h"
+#import "PublicService.h"
+#import "PrivateService.h"
+#import "WishObject.h"
+#import "AppDelegate.h"
 
 @implementation WishUtils
 
@@ -155,4 +159,109 @@
     return CGColorEqualToColor(firstColor.CGColor, secondColor.CGColor);
 }
 
++ (NSString *)setRightDateFormat:(NSDate *) compareDate
+{
+    BOOL isToday = [self isToday:compareDate];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    NSString *dateString;
+    if(isToday){
+        
+        [dateFormat setDateFormat:@"HH:mm"];
+        dateString = [dateFormat stringFromDate:compareDate];
+    }
+    else{
+        
+        [dateFormat setDateFormat:@"dd MMM yyyy"];
+        dateString = [dateFormat stringFromDate:compareDate];
+    }
+    
+    return dateString;
+}
+
++ (BOOL)isToday:(NSDate *)compareDate
+{
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    
+    NSDateComponents *components = [cal components:(NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:[NSDate date]];
+    NSDate *today = [cal dateFromComponents:components];
+    components = [cal components:(NSCalendarUnitEra | NSCalendarUnitYear | NSCalendarUnitMonth|NSCalendarUnitDay) fromDate:compareDate];
+    
+    NSDate *smsDate = [cal dateFromComponents:components];
+    
+    if([today isEqualToDate:smsDate])
+        return YES;
+    else
+        return NO;
+}
+
++ (NSDate *)getDateFromString:(NSString *) dateString {
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
+    NSDate *dateFromString = [[NSDate alloc] init];
+    dateFromString = [dateFormatter dateFromString:dateString];
+    return dateFromString;
+}
+
++ (void) getWishes{
+    
+    AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    appDelgate.wishArray = [[NSMutableArray alloc] init];
+    
+    if (appDelgate.configuration.token && ![appDelgate.configuration.token isEqualToString:@""]) {
+        
+        [[PrivateService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
+            
+            if(isSucess){
+                
+                for (NSDictionary *wishDict in [result objectForKey:@"wishes"]) {
+                    
+                    WishObject *wish = [[WishObject alloc] init];
+                    wish.wishID = [wishDict objectForKey:@"_id"];
+                    wish.content = [wishDict objectForKey:@"content"];
+                    wish.creationDate = [WishUtils getDateFromString:[wishDict objectForKey:@"createdDate"]];
+                    NSDictionary *decorationDict = [wishDict objectForKey:@"decoration"];
+                    wish.decoration.colorString = [decorationDict valueForKey:@"color"];
+                    wish.decoration.imageURL = [decorationDict objectForKey:@"image"];
+                    wish.isActive = [[wishDict objectForKey:@"isActive"] boolValue];
+                    wish.amILike = [[wishDict objectForKey:@"liked"] boolValue];
+                    wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
+                    wish.userID = [wishDict objectForKey:@"userId"];
+                    wish.userName = [wishDict objectForKey:@"username"];
+                    
+                    [appDelgate.wishArray addObject:wish];
+                }
+            }else{
+                
+            }
+        }];
+    }else{
+        
+        [[PublicService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
+            
+            if(isSucess){
+                
+                for (NSDictionary *wishDict in [result objectForKey:@"wishes"]) {
+                    
+                    WishObject *wish = [[WishObject alloc] init];
+                    wish.wishID = [wishDict objectForKey:@"_id"];
+                    wish.content = [wishDict objectForKey:@"content"];
+                    wish.creationDate = [WishUtils getDateFromString:[wishDict objectForKey:@"createdDate"]];
+                    NSDictionary *decorationDict = [wishDict objectForKey:@"decoration"];
+                    wish.decoration.colorString = [decorationDict valueForKey:@"color"];
+                    wish.decoration.imageURL = [decorationDict objectForKey:@"image"];
+                    wish.isActive = [[wishDict objectForKey:@"isActive"] boolValue];
+                    //wish.amILike = [[wishDict objectForKey:@"liked"] boolValue];
+                    wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
+                    wish.userID = [wishDict objectForKey:@"userId"];
+                    wish.userName = [wishDict objectForKey:@"username"];
+                    
+                    [appDelgate.wishArray addObject:wish];
+                }
+            }else{
+                
+            }
+        }];
+    }
+}
 @end
