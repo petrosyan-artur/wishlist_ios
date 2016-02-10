@@ -13,6 +13,7 @@
 
 @property (nonatomic, retain) NSString* pinCode;
 @property (nonatomic, retain) NSString* token;
+@property (nonatomic, retain) NSString* myUserID;
 @property (nonatomic, retain) ColorDecorationCellObject *bgDefaultColor;
 
 @end

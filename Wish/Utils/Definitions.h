@@ -18,5 +18,6 @@
 #define kpinCode @"pinCode"
 #define ktoken @"token"
 #define kbgDefaultColor @"bgDefaultColor"
+#define kMyUserID @"myMyUserID"
 
 

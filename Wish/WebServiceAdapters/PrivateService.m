@@ -78,4 +78,52 @@ static AFHTTPRequestOperationManager *manager;
     }];
 }
 
+- (void) getWishesWitLimit:(NSInteger)limit OnCompletion:(getWishesWithLimitCompletionHandler)completionHandler{
+
+    NSString *contString = [NSString stringWithFormat:@"%@/wishes", privateURLString];
+    NSString *limitString = [NSString stringWithFormat:@"%d", limit];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                               limitString, @"limit",
+                               nil];
+    
+    [manager GET:contString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
+- (void) likeWishWithUserID:(NSString *)userID AndWishID:(NSString *) wishID OnCompletion:(likeWishesCompletionHandler)completionHandler{
+    
+    NSString *contString = [NSString stringWithFormat:@"%@/rates", privateURLString];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            wishID, @"wishId",
+                            userID, @"userId",
+                            nil];
+    
+    [manager POST:contString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
+- (void) dislikeWishWithUserID:(NSString *)userID AndWishID:(NSString *) wishID OnCompletion:(dislikeWishesCompletionHandler)completionHandler{
+    
+    NSString *contString = [NSString stringWithFormat:@"%@/rates/%@/%@", privateURLString, userID, wishID];
+    
+    [manager DELETE:contString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
 @end

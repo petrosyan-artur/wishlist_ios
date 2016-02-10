@@ -63,11 +63,15 @@
             if(isSucess){
                 
                 NSString *token = [result objectForKey:@"token"];
+                NSString *myUserID = [result objectForKey:@"userId"];
                 AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
                 [defaults setValue:token forKey:ktoken];
+                [defaults setValue:myUserID forKey:kMyUserID];
                 [defaults synchronize];
                 appDelgate.configuration.token = [defaults objectForKey:ktoken];
+                appDelgate.configuration.myUserID = [defaults objectForKey:kMyUserID];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"getRefreshNotification" object:self];
                 [self dismissViewControllerAnimated:YES completion:nil];
             }else{
                 

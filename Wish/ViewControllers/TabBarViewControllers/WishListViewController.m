@@ -12,6 +12,8 @@
 #import "WishObject.h"
 #import "WishUtils.h"
 #import "Definitions.h"
+#import "PrivateService.h"
+#import "PublicService.h"
 
 @interface WishListViewController ()
 
@@ -19,6 +21,7 @@
 
 @implementation WishListViewController{
     AppDelegate* appDelgate;
+    UIRefreshControl *refreshControl;
 }
 
 - (void)viewDidLoad {
@@ -29,12 +32,33 @@
                                              selector:@selector(receiveGetWishesNotification:)
                                                  name:@"getWishesNotification"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveGetRefreshNotification:)
+                                                 name:@"getRefreshNotification"
+                                               object:nil];
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.wishListTableView addSubview:refreshControl];
+}
+
+- (void)refresh:(UIRefreshControl *)sender
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [WishUtils getWishes];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.wishListTableView reloadData];
+            [refreshControl endRefreshing];;
+        });
+    });
 }
 
 - (void) viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:YES];
-    [WishUtils getWishes];
 }
 
 - (void) viewDidAppear:(BOOL)animated{
@@ -50,6 +74,14 @@
 - (void) receiveGetWishesNotification:(NSNotification *) notification
 {
     if ([[notification name] isEqualToString:@"getWishesNotification"]){
+        [self.wishListTableView reloadData];
+    }
+}
+
+- (void) receiveGetRefreshNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"getRefreshNotification"]){
+        [WishUtils getWishes];
         [self.wishListTableView reloadData];
     }
 }
@@ -81,18 +113,100 @@
     cell.contentLabel.text = wish.content;
     UIColor *bgColor = [WishUtils getColorFromString:wish.decoration.colorString];
     [cell.contView setBackgroundColor:bgColor];
-    
-    cell.likesCountLabel.text = [NSString stringWithFormat:@"%d", wish.likesCount];
+    [cell.likeButton addTarget:self action:@selector(likeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    cell.likeButton.tag = indexPath.row;
     [cell setLikeLabelWithCount:wish.likesCount];
     
     [cell setLikeButtonState:wish.amILike];
     
     if (indexPath.row == [appDelgate.wishArray count] - 1)
     {
-       // [self launchReload];
+        [self getMoreWishes];
     }
     
     return cell;
+}
+
+- (IBAction)likeButtonAction:(UIButton *)sender{
+
+    if([WishUtils isAuthenticated]){
+        
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];
+        WishObject *wish = [appDelgate.wishArray objectAtIndex:indexPath.row];
+        
+        if(wish.amILike){
+            
+            wish.amILike = NO;
+            wish.likesCount --;
+            NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+            [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+            
+            [[PrivateService sharedInstance] dislikeWishWithUserID:appDelgate.configuration.myUserID AndWishID:wish.wishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+                
+                if (isSucess) {
+                    
+                }else{
+                    
+                    wish.amILike = YES;
+                    wish.likesCount ++;
+                    NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                    [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                }
+                
+            }];
+            
+        }else{
+            
+            wish.amILike = YES;
+            wish.likesCount ++;
+            NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+            [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+            
+            [[PrivateService sharedInstance] likeWishWithUserID:appDelgate.configuration.myUserID AndWishID:wish.wishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+                
+                if(isSucess){
+                    
+                    
+                }else{
+                    
+                    wish.amILike = NO;
+                    wish.likesCount --;
+                    NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                    [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                }
+            }];
+        }
+    }else{
+        
+        [WishUtils openLoginPage];
+    }
+}
+
+- (void) getMoreWishes{
+    
+    if ([WishUtils isAuthenticated]) {
+        
+        [[PrivateService sharedInstance] getWishesWitLimit:appDelgate.wishArray.count OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+           
+            if(isSucess){
+                
+                [WishUtils updatePrivateWishArray:result];
+            }else{
+                
+            }
+        }];
+    }else{
+        
+        [[PublicService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
+            
+            if(isSucess){
+                
+                [WishUtils updatePublicWishArray:result];
+            }else{
+                
+            }
+        }];
+    }
 }
 
 @end

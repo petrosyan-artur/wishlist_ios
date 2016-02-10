@@ -27,7 +27,6 @@
     
     if([WishUtils isAuthenticated]){
 
-        
     }else{
         
         [WishUtils openLoginPage];

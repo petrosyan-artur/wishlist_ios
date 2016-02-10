@@ -209,31 +209,13 @@
     AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     appDelgate.wishArray = [[NSMutableArray alloc] init];
    // [appDelgate.wishArray removeAllObjects];
-    if (appDelgate.configuration.token && ![appDelgate.configuration.token isEqualToString:@""]) {
+    if ([self isAuthenticated]) {
         
         [[PrivateService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
             if(isSucess){
                 
-                for (NSDictionary *wishDict in [result objectForKey:@"wishes"]) {
-                    
-                    WishObject *wish = [[WishObject alloc] init];
-                    wish.wishID = [wishDict objectForKey:@"_id"];
-                    wish.content = [wishDict objectForKey:@"content"];
-                    wish.creationDate = [WishUtils getDateFromString:[wishDict objectForKey:@"createdDate"]];
-                    NSDictionary *decorationDict = [wishDict objectForKey:@"decoration"];
-                    wish.decoration.colorString = [decorationDict valueForKey:@"color"];
-                    wish.decoration.imageURL = [decorationDict objectForKey:@"image"];
-                    wish.isActive = [[wishDict objectForKey:@"isActive"] boolValue];
-                    wish.amILike = [[wishDict objectForKey:@"liked"] boolValue];
-                    wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
-                    wish.userID = [wishDict objectForKey:@"userId"];
-                    wish.userName = [wishDict objectForKey:@"username"];
-                    
-                    [appDelgate.wishArray addObject:wish];
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"getWishesNotification" object:self];
-                }
+                [self updatePrivateWishArray:result];
             }else{
                 
             }
@@ -244,24 +226,7 @@
             
             if(isSucess){
                 
-                for (NSDictionary *wishDict in [result objectForKey:@"wishes"]) {
-                    
-                    WishObject *wish = [[WishObject alloc] init];
-                    wish.wishID = [wishDict objectForKey:@"_id"];
-                    wish.content = [wishDict objectForKey:@"content"];
-                    wish.creationDate = [WishUtils getDateFromString:[wishDict objectForKey:@"createdDate"]];
-                    NSDictionary *decorationDict = [wishDict objectForKey:@"decoration"];
-                    wish.decoration.colorString = [decorationDict valueForKey:@"color"];
-                    wish.decoration.imageURL = [decorationDict objectForKey:@"image"];
-                    wish.isActive = [[wishDict objectForKey:@"isActive"] boolValue];
-                    wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
-                    wish.userID = [wishDict objectForKey:@"userId"];
-                    wish.userName = [wishDict objectForKey:@"username"];
-                    
-                    [appDelgate.wishArray addObject:wish];
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"getWishesNotification" object:self];
-                }
+                [self updatePublicWishArray:result];
             }else{
                 
             }
@@ -289,4 +254,48 @@
     [top showDetailViewController:createWishNavigationViewController sender:self];
 }
 
++ (void) updatePrivateWishArray:(NSDictionary *) result{
+   
+    AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    for (NSDictionary *wishDict in [result objectForKey:@"wishes"]) {
+        
+        WishObject *wish = [[WishObject alloc] init];
+        wish.wishID = [wishDict objectForKey:@"_id"];
+        wish.content = [wishDict objectForKey:@"content"];
+        wish.creationDate = [WishUtils getDateFromString:[wishDict objectForKey:@"createdDate"]];
+        NSDictionary *decorationDict = [wishDict objectForKey:@"decoration"];
+        wish.decoration.colorString = [decorationDict valueForKey:@"color"];
+        wish.decoration.imageURL = [decorationDict objectForKey:@"image"];
+        wish.isActive = [[wishDict objectForKey:@"isActive"] boolValue];
+        wish.amILike = [[wishDict objectForKey:@"liked"] boolValue];
+        wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
+        wish.userID = [wishDict objectForKey:@"userId"];
+        wish.userName = [wishDict objectForKey:@"username"];
+        
+        [appDelgate.wishArray addObject:wish];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"getWishesNotification" object:self];
+    }
+}
+
++ (void) updatePublicWishArray:(NSDictionary *) result{
+    
+    AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    for (NSDictionary *wishDict in [result objectForKey:@"wishes"]) {
+        
+        WishObject *wish = [[WishObject alloc] init];
+        wish.wishID = [wishDict objectForKey:@"_id"];
+        wish.content = [wishDict objectForKey:@"content"];
+        wish.creationDate = [WishUtils getDateFromString:[wishDict objectForKey:@"createdDate"]];
+        NSDictionary *decorationDict = [wishDict objectForKey:@"decoration"];
+        wish.decoration.colorString = [decorationDict valueForKey:@"color"];
+        wish.decoration.imageURL = [decorationDict objectForKey:@"image"];
+        wish.isActive = [[wishDict objectForKey:@"isActive"] boolValue];
+        wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
+        wish.userID = [wishDict objectForKey:@"userId"];
+        wish.userName = [wishDict objectForKey:@"username"];
+        
+        [appDelgate.wishArray addObject:wish];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"getWishesNotification" object:self];
+    }
+}
 @end

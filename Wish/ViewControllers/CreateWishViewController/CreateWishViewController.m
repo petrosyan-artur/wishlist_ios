@@ -136,6 +136,7 @@
         [indicator removeFromSuperview];
         if(isSucess){
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"getRefreshNotification" object:self];
             [self dismissViewControllerAnimated:YES completion:nil];
         }else{
             
@@ -237,7 +238,6 @@
         NSString *subString = [textView.text substringToIndex:appDelgate.webConfiguration.maxSymbolsCount];
         textView.text = subString;
     }
-    
 }
 
 @end

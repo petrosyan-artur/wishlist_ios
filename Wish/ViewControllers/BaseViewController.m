@@ -23,6 +23,7 @@
     appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     self.wishListTableView.estimatedRowHeight = 200.0f;
     self.wishListTableView.rowHeight = UITableViewAutomaticDimension;
+    self.wishListTableView.delaysContentTouches = NO;
 }
 
 - (void) viewDidAppear:(BOOL)animated{
