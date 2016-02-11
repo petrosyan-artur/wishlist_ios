@@ -254,7 +254,7 @@
     [top showDetailViewController:createWishNavigationViewController sender:self];
 }
 
-+ (void) updatePrivateWishArray:(NSDictionary *) result{
++ (NSMutableArray *) updatePrivateWishArray:(NSDictionary *) result{
    
     AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     for (NSDictionary *wishDict in [result objectForKey:@"wishes"]) {
@@ -273,11 +273,12 @@
         wish.userName = [wishDict objectForKey:@"username"];
         
         [appDelgate.wishArray addObject:wish];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"getWishesNotification" object:self];
     }
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"getWishesNotification" object:self];
+    return appDelgate.wishArray;
 }
 
-+ (void) updatePublicWishArray:(NSDictionary *) result{
++ (NSMutableArray *) updatePublicWishArray:(NSDictionary *) result{
     
     AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     for (NSDictionary *wishDict in [result objectForKey:@"wishes"]) {
@@ -295,7 +296,8 @@
         wish.userName = [wishDict objectForKey:@"username"];
         
         [appDelgate.wishArray addObject:wish];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"getWishesNotification" object:self];
     }
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"getWishesNotification" object:self];
+    return appDelgate.wishArray;
 }
 @end

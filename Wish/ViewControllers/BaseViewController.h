@@ -12,8 +12,10 @@
 #import "WishObject.h"
 #import "WishUtils.h"
 
-@interface BaseViewController : UIViewController
+@interface BaseViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UITableView *wishListTableView;
+@property (strong, nonatomic) NSMutableArray *wishesArray;
+- (void) getMoreWishes;
 
 @end

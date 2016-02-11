@@ -25,7 +25,7 @@
 + (UIViewController*) getTopMostViewController;
 + (BOOL) isAuthenticated;
 + (void) openLoginPage;
-+ (void) updatePrivateWishArray:(NSDictionary *) result;
-+ (void) updatePublicWishArray:(NSDictionary *) result;
++ (NSMutableArray *) updatePrivateWishArray:(NSDictionary *) result;
++ (NSMutableArray *) updatePublicWishArray:(NSDictionary *) result;
 
 @end
