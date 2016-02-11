@@ -19,25 +19,17 @@
 
 @end
 
-@implementation WishListViewController{
-    AppDelegate* appDelgate;
-    UIRefreshControl *refreshControl;
-}
+@implementation WishListViewController
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    self.wishesArray = [[NSMutableArray alloc] initWithArray:appDelgate.wishArray];
+    self.wishesArray = [[NSMutableArray alloc] initWithArray:self.appDelgate.wishArray];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveGetRefreshNotification:)
                                                  name:@"getRefreshNotification"
                                                object:nil];
-    
-    refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-    [self.wishListTableView addSubview:refreshControl];
 }
 
 - (void)refresh:(UIRefreshControl *)sender
@@ -47,7 +39,7 @@
         [self getWishes];
         dispatch_async(dispatch_get_main_queue(), ^{
 
-            [refreshControl endRefreshing];;
+            [self.refreshControl endRefreshing];;
         });
     });
 }
@@ -78,7 +70,7 @@
 - (void) getWishes{
 
     [self.wishesArray removeAllObjects];
-    appDelgate.wishArray = [[NSMutableArray alloc] init];
+    self.appDelgate.wishArray = [[NSMutableArray alloc] init];
     if ([WishUtils isAuthenticated]) {
         
         [[PrivateService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
@@ -87,7 +79,6 @@
                 
                 self.wishesArray = [WishUtils updatePrivateWishArray:result];
                 [self.wishListTableView reloadData];
-                [refreshControl endRefreshing];
             }else{
                 
             }
@@ -111,7 +102,7 @@
     
     if ([WishUtils isAuthenticated]) {
         
-        [[PrivateService sharedInstance] getWishesWitLimit:appDelgate.wishArray.count OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+        [[PrivateService sharedInstance] getWishesWitLimit:self.appDelgate.wishArray.count OnCompletion:^(NSDictionary *result, BOOL isSucess) {
            
             if(isSucess){
                 

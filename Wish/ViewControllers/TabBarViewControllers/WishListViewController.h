@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 
-@interface WishListViewController : BaseViewController <UITableViewDataSource, UITableViewDelegate>
+@interface WishListViewController : BaseViewController
 
 @end

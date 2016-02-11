@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface LikedWishesViewController : UIViewController
+@interface LikedWishesViewController : BaseViewController
 
 @end

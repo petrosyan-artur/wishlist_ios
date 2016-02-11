@@ -16,6 +16,9 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *wishListTableView;
 @property (strong, nonatomic) NSMutableArray *wishesArray;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) AppDelegate* appDelgate;
+
 - (void) getMoreWishes;
 
 @end

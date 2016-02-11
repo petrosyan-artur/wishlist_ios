@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface MyWishesViewController : UIViewController
+@interface MyWishesViewController : BaseViewController
 
 @end

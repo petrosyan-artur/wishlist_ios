@@ -12,11 +12,24 @@
 
 @end
 
-@implementation LikedWishesViewController
+@implementation LikedWishesViewController{
+    AppDelegate* appDelgate;
+    UIRefreshControl *refreshControl;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+//    appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+//    self.wishesArray = [[NSMutableArray alloc] initWithArray:appDelgate.wishArray];
+//    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(receiveGetRefreshNotification:)
+//                                                 name:@"getRefreshNotification"
+//                                               object:nil];
+//    
+//    refreshControl = [[UIRefreshControl alloc] init];
+//    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+//    [self.wishListTableView addSubview:refreshControl];
 }
 
 - (void)didReceiveMemoryWarning {

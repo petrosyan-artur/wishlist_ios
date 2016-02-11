@@ -15,8 +15,9 @@
 
 @implementation BaseViewController{
     
-    AppDelegate* appDelgate;
+    
 }
+@synthesize refreshControl, appDelgate;
 
 - (void)viewDidLoad {
     
@@ -25,6 +26,14 @@
     self.wishListTableView.estimatedRowHeight = 200.0f;
     self.wishListTableView.rowHeight = UITableViewAutomaticDimension;
     self.wishListTableView.delaysContentTouches = NO;
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self.wishListTableView addSubview:refreshControl];
+}
+
+- (void)refresh:(UIRefreshControl *)sender{
+    
 }
 
 - (void) viewDidAppear:(BOOL)animated{
