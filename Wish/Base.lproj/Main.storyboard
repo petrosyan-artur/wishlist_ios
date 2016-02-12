@@ -190,17 +190,57 @@
                                     <outlet property="delegate" destination="Ccp-xp-In6" id="UhH-gT-hQ7"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pik-Yq-Jng">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You must sign in to view this content" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7DF-w8-UnL">
+                                        <rect key="frame" x="203" y="150" width="195" height="53"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="195" id="gMM-ac-wm0"/>
+                                            <constraint firstAttribute="height" constant="53" id="ipV-tk-x4B"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.43137254899999999" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osa-rc-ijy">
+                                        <rect key="frame" x="243" y="211" width="114" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="Fqf-sQ-U9C"/>
+                                            <constraint firstAttribute="width" constant="114" id="dDO-Jq-rRi"/>
+                                        </constraints>
+                                        <state key="normal" title="SIGN IN">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sigInButtonAction:" destination="68f-ph-NWi" eventType="touchUpInside" id="FRT-lC-nbw"/>
+                                            <action selector="signInButtonAction:" destination="Ccp-xp-In6" eventType="touchUpInside" id="689-OD-X73"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="7DF-w8-UnL" firstAttribute="centerX" secondItem="Pik-Yq-Jng" secondAttribute="centerX" id="5pv-W7-E6U"/>
+                                    <constraint firstItem="osa-rc-ijy" firstAttribute="centerX" secondItem="Pik-Yq-Jng" secondAttribute="centerX" id="BCW-nt-RX0"/>
+                                    <constraint firstItem="7DF-w8-UnL" firstAttribute="top" secondItem="Pik-Yq-Jng" secondAttribute="top" constant="150" id="KnB-Lx-xQl"/>
+                                    <constraint firstItem="osa-rc-ijy" firstAttribute="top" secondItem="7DF-w8-UnL" secondAttribute="bottom" constant="8" id="WMd-ME-3wy"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="57m-pg-K19" firstAttribute="leading" secondItem="9oR-Q6-Qtg" secondAttribute="leading" id="5Tq-Dh-WCC"/>
+                            <constraint firstAttribute="trailing" secondItem="Pik-Yq-Jng" secondAttribute="trailing" id="H5u-yQ-hQh"/>
+                            <constraint firstItem="lle-pE-vCC" firstAttribute="top" secondItem="Pik-Yq-Jng" secondAttribute="bottom" id="HKe-et-uF0"/>
+                            <constraint firstItem="Pik-Yq-Jng" firstAttribute="top" secondItem="Lhm-me-iY4" secondAttribute="bottom" id="OLP-ns-z7e"/>
                             <constraint firstItem="57m-pg-K19" firstAttribute="top" secondItem="Lhm-me-iY4" secondAttribute="bottom" id="Xoy-4f-dWd"/>
                             <constraint firstItem="lle-pE-vCC" firstAttribute="top" secondItem="57m-pg-K19" secondAttribute="bottom" id="ckG-Qj-lSS"/>
+                            <constraint firstItem="Pik-Yq-Jng" firstAttribute="leading" secondItem="9oR-Q6-Qtg" secondAttribute="leading" id="dUy-gs-y48"/>
                             <constraint firstAttribute="trailing" secondItem="57m-pg-K19" secondAttribute="trailing" id="wNN-gh-sNT"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="LIKES" image="tabLikesIcon" id="PSE-ru-Uec"/>
                     <connections>
+                        <outlet property="sigInView" destination="Pik-Yq-Jng" id="dMl-Bb-NXZ"/>
                         <outlet property="wishListTableView" destination="57m-pg-K19" id="hYh-Gq-X1O"/>
                     </connections>
                 </viewController>

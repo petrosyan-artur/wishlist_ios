@@ -10,7 +10,7 @@
 #import "PrivateService.h"
 
 @interface LikedWishesViewController ()
-
+@property (strong, nonatomic) IBOutlet UIView *sigInView;
 @end
 
 @implementation LikedWishesViewController{
@@ -22,11 +22,12 @@
     
     [super viewDidLoad];
     //self.wishesArray = [[NSMutableArray alloc] initWithArray:self.appDelgate.wishArray];
+    self.sigInView.hidden = YES;
     [self getWishes];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(receiveGetRefreshNotification:)
-//                                                 name:@"getRefreshNotification"
-//                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveGetRefreshNotification:)
+                                                 name:@"getRefreshNotification"
+                                               object:nil];
 }
 
 - (void)refresh:(UIRefreshControl *)sender
@@ -72,36 +73,46 @@
         NSLog(@"%@", appDelgate.configuration.myUserID);
         AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
         NSLog(@"%@", appDelegate.configuration.myUserID);
-        [[PrivateService sharedInstance] getMyWishesWIthUserID:appDelegate.configuration.myUserID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
-           
+        
+        [[PrivateService sharedInstance] getMyLikesWIthUserID:appDelegate.configuration.myUserID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+            
+            self.sigInView.hidden = YES;
             self.wishesArray = [WishUtils updateWishArray:result];
-            NSLog(@"qqqqqqqq = %@", result);
             [self.wishListTableView reloadData];
         }];
+        
     }else{
         
-    
+        self.sigInView.hidden = NO;
     }
 }
 
 - (void) getMoreWishes{
     
-//    if ([WishUtils isAuthenticated]) {
-//        
-//        [[PrivateService sharedInstance] getWishesWitLimit:self.appDelgate.wishArray.count OnCompletion:^(NSDictionary *result, BOOL isSucess) {
-//            
-//            if(isSucess){
-//                
-//                self.wishesArray = [WishUtils updatePrivateWishArray:result];
-//                [self.wishListTableView reloadData];
-//            }else{
-//                
-//            }
-//        }];
-//    }else{
-//        
-//        
-//    }
+    if ([WishUtils isAuthenticated]) {
+        
+        [[PrivateService sharedInstance] getMyLikesWitLimit:self.wishesArray.count OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+            
+            if(isSucess){
+                
+                NSArray *wishes = [result objectForKey:@"wishes"];
+                if(wishes.count > 0){
+                    self.wishesArray = [WishUtils updateWishArray:result AndCurrentWishArray:self.wishesArray];
+                    [self.wishListTableView reloadData];
+                }
+            }else{
+                
+            }
+        }];
+    }else{
+        
+        
+    }
+}
+
+- (IBAction)signInButtonAction:(UIButton *)sender {
+    
+    [WishUtils openLoginPage];
 }
 
 @end

@@ -15,6 +15,8 @@ typedef void (^likeWishesCompletionHandler)(NSDictionary *result, BOOL isSucess)
 typedef void (^dislikeWishesCompletionHandler)(NSDictionary *result, BOOL isSucess);
 typedef void (^getMyWishesCompletionHandler)(NSDictionary *result, BOOL isSucess);
 typedef void (^getMyWishesWithLimitCompletionHandler)(NSDictionary *result, BOOL isSucess);
+typedef void (^getMyLikesCompletionHandler)(NSDictionary *result, BOOL isSucess);
+typedef void (^getMyLikesWithLimitCompletionHandler)(NSDictionary *result, BOOL isSucess);
 
 @interface PrivateService : NSObject
 
@@ -27,5 +29,7 @@ typedef void (^getMyWishesWithLimitCompletionHandler)(NSDictionary *result, BOOL
 - (void) dislikeWishWithUserID:(NSString *)userID AndWishID:(NSString *) wishID OnCompletion:(dislikeWishesCompletionHandler)completionHandler;
 - (void) getMyWishesWIthUserID:(NSString *) userID OnCompletion:(getMyWishesCompletionHandler)completionHandler;
 - (void) getMyWishesWitLimit:(NSInteger)limit OnCompletion:(getMyWishesWithLimitCompletionHandler)completionHandler;
+- (void) getMyLikesWIthUserID:(NSString *) userID OnCompletion:(getMyLikesCompletionHandler)completionHandler;
+- (void) getMyLikesWitLimit:(NSInteger)limit OnCompletion:(getMyLikesWithLimitCompletionHandler)completionHandler;
 
 @end

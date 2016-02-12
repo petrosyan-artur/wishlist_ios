@@ -157,4 +157,34 @@ static AppDelegate* appDelgate;
     }];
 }
 
+- (void) getMyLikesWIthUserID:(NSString *) userID OnCompletion:(getMyLikesCompletionHandler)completionHandler{
+  
+    NSString *contString = [NSString stringWithFormat:@"%@/wishes?userId=%@&liked=1", privateURLString, userID];
+    
+    [manager GET:contString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
+- (void) getMyLikesWitLimit:(NSInteger)limit OnCompletion:(getMyLikesWithLimitCompletionHandler)completionHandler{
+    
+    NSString *contString = [NSString stringWithFormat:@"%@/wishes?userId=%@&liked=1", privateURLString, appDelgate.configuration.myUserID];
+    NSString *limitString = [NSString stringWithFormat:@"%d", limit];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            limitString, @"limit",
+                            nil];
+    
+    [manager GET:contString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
 @end
