@@ -133,7 +133,7 @@
     
     [[PrivateService sharedInstance] postWishWithContent:self.wishTextField.text Color:defaultColorString AndImage:@"" OnCompletion:^(NSDictionary *result, BOOL isSucess) {
         
-        [indicator removeFromSuperview];
+        [transparent removeFromSuperview];
         if(isSucess){
             
             [[NSNotificationCenter defaultCenter] postNotificationName:@"getRefreshNotification" object:self];
