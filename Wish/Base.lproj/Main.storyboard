@@ -326,17 +326,56 @@
                                     <outlet property="delegate" destination="68f-ph-NWi" id="g76-gx-wqy"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nr7-i7-xKo">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You must sign in to view this content" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSt-mm-tHU">
+                                        <rect key="frame" x="203" y="150" width="195" height="53"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="53" id="Kcr-RA-mAZ"/>
+                                            <constraint firstAttribute="width" constant="195" id="nfN-CW-hZN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.43137254899999999" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UAn-6z-RVH">
+                                        <rect key="frame" x="243" y="211" width="114" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="2Lg-7c-mOd"/>
+                                            <constraint firstAttribute="width" constant="114" id="CB0-0W-Def"/>
+                                        </constraints>
+                                        <state key="normal" title="SIGN IN">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sigInButtonAction:" destination="68f-ph-NWi" eventType="touchUpInside" id="wFl-Tn-6p3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="RSt-mm-tHU" firstAttribute="centerX" secondItem="Nr7-i7-xKo" secondAttribute="centerX" id="9Q9-kA-Wm7"/>
+                                    <constraint firstItem="UAn-6z-RVH" firstAttribute="top" secondItem="RSt-mm-tHU" secondAttribute="bottom" constant="8" id="BKr-Uu-62M"/>
+                                    <constraint firstItem="UAn-6z-RVH" firstAttribute="centerX" secondItem="Nr7-i7-xKo" secondAttribute="centerX" id="Lb9-uk-viN"/>
+                                    <constraint firstItem="RSt-mm-tHU" firstAttribute="top" secondItem="Nr7-i7-xKo" secondAttribute="top" constant="150" id="ktr-xu-M2S"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="xJN-Vg-vtr" firstAttribute="top" secondItem="5bh-Mz-hRF" secondAttribute="bottom" id="KFT-ii-45Q"/>
-                            <constraint firstItem="Ea5-YY-ojX" firstAttribute="top" secondItem="xJN-Vg-vtr" secondAttribute="bottom" id="Oic-QQ-mP9"/>
-                            <constraint firstItem="xJN-Vg-vtr" firstAttribute="leading" secondItem="0Bh-Ms-sBX" secondAttribute="leading" id="PPp-fg-o4O"/>
-                            <constraint firstAttribute="trailing" secondItem="xJN-Vg-vtr" secondAttribute="trailing" id="wqd-27-ZfV"/>
+                            <constraint firstAttribute="trailing" secondItem="xJN-Vg-vtr" secondAttribute="trailing" id="7v0-g4-sYm"/>
+                            <constraint firstItem="xJN-Vg-vtr" firstAttribute="leading" secondItem="0Bh-Ms-sBX" secondAttribute="leading" id="7vc-Ae-sfi"/>
+                            <constraint firstAttribute="trailing" secondItem="Nr7-i7-xKo" secondAttribute="trailing" id="AX2-td-axu"/>
+                            <constraint firstItem="Nr7-i7-xKo" firstAttribute="leading" secondItem="0Bh-Ms-sBX" secondAttribute="leading" id="Bo2-4z-Xx2"/>
+                            <constraint firstItem="Ea5-YY-ojX" firstAttribute="top" secondItem="xJN-Vg-vtr" secondAttribute="bottom" id="RVF-u8-UH8"/>
+                            <constraint firstItem="Ea5-YY-ojX" firstAttribute="top" secondItem="Nr7-i7-xKo" secondAttribute="bottom" id="UVI-Sy-ffW"/>
+                            <constraint firstItem="xJN-Vg-vtr" firstAttribute="top" secondItem="5bh-Mz-hRF" secondAttribute="bottom" id="oh5-Pv-BBa"/>
+                            <constraint firstItem="Nr7-i7-xKo" firstAttribute="top" secondItem="5bh-Mz-hRF" secondAttribute="bottom" id="vp3-jR-MDA"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="MY WISHES" image="tabMyWishesIcon" id="2dM-qu-QSv"/>
                     <connections>
+                        <outlet property="sigInView" destination="Nr7-i7-xKo" id="hyK-xz-zVG"/>
                         <outlet property="wishListTableView" destination="xJN-Vg-vtr" id="lXZ-f3-D7e"/>
                     </connections>
                 </viewController>

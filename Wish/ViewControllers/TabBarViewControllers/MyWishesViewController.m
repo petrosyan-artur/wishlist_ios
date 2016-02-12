@@ -11,6 +11,8 @@
 
 @interface MyWishesViewController ()
 
+@property (strong, nonatomic) IBOutlet UIView *sigInView;
+
 @end
 
 @implementation MyWishesViewController
@@ -18,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.sigInView.hidden = YES;
     [self getWishes];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveGetRefreshNotification:)
@@ -58,12 +61,13 @@
         AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
         [[PrivateService sharedInstance] getMyWishesWIthUserID:appDelegate.configuration.myUserID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
+            self.sigInView.hidden = YES;
             self.wishesArray = [WishUtils updateWishArray:result];
             [self.wishListTableView reloadData];
         }];
     }else{
         
-        
+        self.sigInView.hidden = NO;
     }
 }
 
@@ -76,7 +80,6 @@
             if(isSucess){
                 
                 NSArray *wishes = [result objectForKey:@"wishes"];
-                NSLog(@"qqqqqqq = %@", wishes);
                 if(wishes.count > 0){
                     self.wishesArray = [WishUtils updateWishArray:result AndCurrentWishArray:self.wishesArray];
                     [self.wishListTableView reloadData];
@@ -89,6 +92,11 @@
         
         
     }
+}
+
+- (IBAction)sigInButtonAction:(UIButton *)sender {
+    
+    [WishUtils openLoginPage];
 }
 
 @end
