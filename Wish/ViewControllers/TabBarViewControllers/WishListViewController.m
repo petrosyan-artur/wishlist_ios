@@ -106,8 +106,11 @@
            
             if(isSucess){
                 
-                self.wishesArray = [WishUtils updatePrivateWishArray:result];
-                [self.wishListTableView reloadData];
+                NSArray *wishes = [result objectForKey:@"wishes"];
+                if(wishes.count > 0){
+                    self.wishesArray = [WishUtils updatePrivateWishArray:result];
+                    [self.wishListTableView reloadData];
+                }
             }else{
                 
             }
@@ -118,8 +121,11 @@
             
             if(isSucess){
                 
-                self.wishesArray = [WishUtils updatePublicWishArray:result];
-                [self.wishListTableView reloadData];
+                NSArray *wishes = [result objectForKey:@"wishes"];
+                if(wishes.count > 0){
+                    self.wishesArray = [WishUtils updatePublicWishArray:result];
+                    [self.wishListTableView reloadData];
+                }
             }else{
                 
             }

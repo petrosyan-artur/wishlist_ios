@@ -26,6 +26,7 @@
     self.wishListTableView.estimatedRowHeight = 200.0f;
     self.wishListTableView.rowHeight = UITableViewAutomaticDimension;
     self.wishListTableView.delaysContentTouches = NO;
+    self.wishesArray = [[NSMutableArray alloc] init];
     
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];

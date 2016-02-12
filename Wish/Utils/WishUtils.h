@@ -27,5 +27,7 @@
 + (void) openLoginPage;
 + (NSMutableArray *) updatePrivateWishArray:(NSDictionary *) result;
 + (NSMutableArray *) updatePublicWishArray:(NSDictionary *) result;
++ (NSMutableArray *) updateWishArray:(NSDictionary *) result;
++ (NSMutableArray *) updateWishArray:(NSDictionary *) result AndCurrentWishArray:(NSMutableArray *)currentArray;
 
 @end

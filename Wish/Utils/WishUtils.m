@@ -300,4 +300,51 @@
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"getWishesNotification" object:self];
     return appDelgate.wishArray;
 }
+
++ (NSMutableArray *) updateWishArray:(NSDictionary *) result AndCurrentWishArray:(NSMutableArray *)currentArray{
+    
+    for (NSDictionary *wishDict in [result objectForKey:@"wishes"]) {
+        
+        WishObject *wish = [[WishObject alloc] init];
+        wish.wishID = [wishDict objectForKey:@"_id"];
+        wish.content = [wishDict objectForKey:@"content"];
+        wish.creationDate = [WishUtils getDateFromString:[wishDict objectForKey:@"createdDate"]];
+        NSDictionary *decorationDict = [wishDict objectForKey:@"decoration"];
+        wish.decoration.colorString = [decorationDict valueForKey:@"color"];
+        wish.decoration.imageURL = [decorationDict objectForKey:@"image"];
+        wish.isActive = [[wishDict objectForKey:@"isActive"] boolValue];
+        wish.amILike = [[wishDict objectForKey:@"liked"] boolValue];
+        wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
+        wish.userID = [wishDict objectForKey:@"userId"];
+        wish.userName = [wishDict objectForKey:@"username"];
+        
+        [currentArray addObject:wish];
+    }
+    return currentArray;
+}
+
++ (NSMutableArray *) updateWishArray:(NSDictionary *) result{
+    
+    NSMutableArray *resultArray = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *wishDict in [result objectForKey:@"wishes"]) {
+        
+        WishObject *wish = [[WishObject alloc] init];
+        wish.wishID = [wishDict objectForKey:@"_id"];
+        wish.content = [wishDict objectForKey:@"content"];
+        wish.creationDate = [WishUtils getDateFromString:[wishDict objectForKey:@"createdDate"]];
+        NSDictionary *decorationDict = [wishDict objectForKey:@"decoration"];
+        wish.decoration.colorString = [decorationDict valueForKey:@"color"];
+        wish.decoration.imageURL = [decorationDict objectForKey:@"image"];
+        wish.isActive = [[wishDict objectForKey:@"isActive"] boolValue];
+        wish.amILike = [[wishDict objectForKey:@"liked"] boolValue];
+        wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
+        wish.userID = [wishDict objectForKey:@"userId"];
+        wish.userName = [wishDict objectForKey:@"username"];
+        
+        [resultArray addObject:wish];
+    }
+    return resultArray;
+}
+
 @end

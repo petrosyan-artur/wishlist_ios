@@ -16,6 +16,7 @@
 static PrivateService *sharedInstance = nil;
 static NSString *privateURLString;
 static AFHTTPRequestOperationManager *manager;
+static AppDelegate* appDelgate;
 
 +(PrivateService *)sharedInstance {
     @synchronized(self) {
@@ -24,7 +25,7 @@ static AFHTTPRequestOperationManager *manager;
             }
         }
     
-    AppDelegate* appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     NSString *platform = @"iOS";
     NSString *model = [[UIDevice currentDevice] model];
     float osVersion = [[[UIDevice currentDevice] systemVersion] floatValue];
@@ -118,6 +119,36 @@ static AFHTTPRequestOperationManager *manager;
     
     [manager DELETE:contString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
+- (void) getMyWishesWIthUserID:(NSString *) userID OnCompletion:(getMyWishesCompletionHandler)completionHandler{
+    
+    NSString *contString = [NSString stringWithFormat:@"%@/wishes?userId=%@", privateURLString, userID];
+    
+    [manager GET:contString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
+- (void) getMyWishesWitLimit:(NSInteger)limit OnCompletion:(getMyWishesWithLimitCompletionHandler)completionHandler{
+    
+    NSString *contString = [NSString stringWithFormat:@"%@/wishes?userId=%@", privateURLString, appDelgate.configuration.myUserID];
+    NSString *limitString = [NSString stringWithFormat:@"%d", limit];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            limitString, @"limit",
+                            nil];
+    
+    [manager GET:contString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
