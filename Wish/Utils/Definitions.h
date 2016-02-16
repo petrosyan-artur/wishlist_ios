@@ -18,7 +18,7 @@
 #define kpinCode @"pinCode"
 #define ktoken @"token"
 #define kbgDefaultColor @"bgDefaultColor"
-#define kMyUserID @"myMyUserID"
+#define kMyUserID @"MyUserID"
 
 typedef enum PageIndexTypes
 {

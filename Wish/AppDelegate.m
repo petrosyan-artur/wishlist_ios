@@ -37,6 +37,7 @@
             webConfiguration.maxSymbolsCount = [[[result objectForKey:@"configs"] objectForKey:@"max_symbols"] integerValue];
             webConfiguration.wishCheckInterval = [[[result objectForKey:@"configs"] objectForKey:@"wish_check_interval"] integerValue];
             webConfiguration.wishEditAlertMessage = [[[result objectForKey:@"configs"] objectForKey:@"messages"] objectForKey:@"wish_edit_alert"];
+            webConfiguration.wishDeleteAlertMessage = [[[result objectForKey:@"configs"] objectForKey:@"messages"] objectForKey:@"wish_delete_alert"];
         }else{
             
             [WishUtils showErrorAlertWithTitle:@"" AndText:[result objectForKey:@"message"]];

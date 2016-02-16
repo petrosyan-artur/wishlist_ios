@@ -211,4 +211,18 @@ static AppDelegate* appDelgate;
     }];
 }
 
+- (void) deleteWishWithWishObject:(WishObject *)wish OnCompletion:(deleteWishCompletionHandler)completionHandler{
+    
+    NSString *contString = [NSString stringWithFormat:@"%@/wishes/%@?userId=%@", privateURLString, wish.wishID, appDelgate.configuration.myUserID];
+    
+    [manager DELETE:contString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
 @end

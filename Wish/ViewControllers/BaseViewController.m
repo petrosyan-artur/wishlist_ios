@@ -9,6 +9,7 @@
 #import "BaseViewController.h"
 #import "PrivateService.h"
 #import "EditWishViewController.h"
+#import "PrivateService.h"
 
 @interface BaseViewController ()
 
@@ -148,6 +149,8 @@
     
 }
 
+#pragma mark - LongPressMenuDelegate
+
 - (void) editWishWithWishObject:(WishObject *)wish{
     
     if(wish.likesCount == 0){
@@ -168,6 +171,25 @@
         
     }else{
         [WishUtils showErrorAlertWithTitle:@"" AndText:appDelgate.webConfiguration.wishEditAlertMessage];
+    }
+}
+
+- (void) deleteWishWithWishObject:(WishObject *)wish{
+    
+    if(wish.likesCount == 0){
+        
+        [[PrivateService sharedInstance] deleteWishWithWishObject:wish OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+            
+            if(isSucess){
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"getRefreshNotification" object:self];
+            }else{
+                
+                [WishUtils showErrorAlertWithTitle:@"" AndText:[result objectForKey:@"message"]];
+            }
+        }];
+    }else{
+        [WishUtils showErrorAlertWithTitle:@"" AndText:appDelgate.webConfiguration.wishDeleteAlertMessage];
     }
 }
 

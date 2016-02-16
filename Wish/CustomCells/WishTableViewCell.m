@@ -73,11 +73,11 @@
 - (void)editAction:(id)sender {
     
     [self editWishWithWishObject:self.wish];
-    //[self.delegate editWishWithWishObject:self.wish];
 }
 
 - (void)deleteAction:(id)sender {
-    NSLog(@"Custom Action");
+    
+    [self deleteWishWithWishObject:self.wish];
 }
 
 - (IBAction)likeButtonAction:(UIButton *)sender {
@@ -116,7 +116,13 @@
 #pragma mark - LongPressMenuDelegate
 
 - (void) editWishWithWishObject:(WishObject *)wish{
+    
     [self.delegate editWishWithWishObject:wish];
+}
+
+- (void) deleteWishWithWishObject:(WishObject *)wish{
+    
+    [self.delegate deleteWishWithWishObject:wish];
 }
 
 @end

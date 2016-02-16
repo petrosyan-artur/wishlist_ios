@@ -15,6 +15,7 @@
 @property (nonatomic, assign) NSInteger maxSymbolsCount;
 @property (nonatomic, strong, readonly) NSArray *colorsArray;
 @property (nonatomic, strong) NSString *wishEditAlertMessage;
+@property (nonatomic, strong) NSString *wishDeleteAlertMessage;
 @property (nonatomic, assign) NSInteger wishCheckInterval;
 
 @end

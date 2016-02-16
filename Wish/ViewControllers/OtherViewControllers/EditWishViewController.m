@@ -125,7 +125,7 @@
             [transparent removeFromSuperview];
             if(isSucess){
                 
-               // [[NSNotificationCenter defaultCenter] postNotificationName:@"getRefreshNotification" object:self];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"getRefreshNotification" object:self];
                 [self dismissViewControllerAnimated:YES completion:nil];
             }else{
                 

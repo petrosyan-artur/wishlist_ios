@@ -13,6 +13,7 @@
 @protocol LongPressMenuDelegate <NSObject>
 
 - (void) editWishWithWishObject:(WishObject *) wish;
+- (void) deleteWishWithWishObject:(WishObject *) wish;
 
 @end
 
