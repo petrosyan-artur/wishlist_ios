@@ -28,6 +28,7 @@
                                              selector:@selector(receiveGetRefreshNotification:)
                                                  name:@"getRefreshNotification"
                                                object:nil];
+    self.pageIndex = LIKES_PAGE;
 }
 
 - (void)refresh:(UIRefreshControl *)sender
@@ -70,15 +71,25 @@
     [self.wishesArray removeAllObjects];
     if ([WishUtils isAuthenticated]) {
         
-        NSLog(@"%@", appDelgate.configuration.myUserID);
         AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-        NSLog(@"%@", appDelegate.configuration.myUserID);
+        
+        UIView *transparent = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, kmainScreenWidth, kmainScreenHeight)];
+        transparent.backgroundColor = [UIColor blackColor];
+        transparent.alpha = 0.8f;
+        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        indicator.center =CGPointMake(kmainScreenWidth/2, kmainScreenHeight/2);
+        [transparent addSubview:indicator];
+        [indicator startAnimating];
+        [self.view addSubview:transparent];
         
         [[PrivateService sharedInstance] getMyLikesWIthUserID:appDelegate.configuration.myUserID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
-            self.sigInView.hidden = YES;
-            self.wishesArray = [WishUtils updateWishArray:result];
-            [self.wishListTableView reloadData];
+            [transparent removeFromSuperview];
+            if(isSucess){
+                self.sigInView.hidden = YES;
+                self.wishesArray = [WishUtils updateWishArray:result];
+                [self.wishListTableView reloadData];
+            }
         }];
         
     }else{

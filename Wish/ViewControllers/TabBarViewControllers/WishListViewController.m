@@ -30,6 +30,8 @@
                                              selector:@selector(receiveGetRefreshNotification:)
                                                  name:@"getRefreshNotification"
                                                object:nil];
+    
+    self.pageIndex = HOME_PAGE;
 }
 
 - (void)refresh:(UIRefreshControl *)sender
@@ -71,10 +73,21 @@
 
     [self.wishesArray removeAllObjects];
     self.appDelgate.wishArray = [[NSMutableArray alloc] init];
+    
+    UIView *transparent = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, kmainScreenWidth, kmainScreenHeight)];
+    transparent.backgroundColor = [UIColor blackColor];
+    transparent.alpha = 0.8f;
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicator.center =CGPointMake(kmainScreenWidth/2, kmainScreenHeight/2);
+    [transparent addSubview:indicator];
+    [indicator startAnimating];
+    [self.view addSubview:transparent];
+    
     if ([WishUtils isAuthenticated]) {
         
         [[PrivateService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
+            [transparent removeFromSuperview];
             if(isSucess){
                 
                 self.wishesArray = [WishUtils updatePrivateWishArray:result];
@@ -87,6 +100,7 @@
         
         [[PublicService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
+            [transparent removeFromSuperview];
             if(isSucess){
                 
                 self.wishesArray = [WishUtils updatePublicWishArray:result];

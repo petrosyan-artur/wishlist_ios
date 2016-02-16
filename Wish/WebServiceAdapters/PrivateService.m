@@ -187,4 +187,28 @@ static AppDelegate* appDelgate;
     }];
 }
 
+- (void) editWishWithWishObject:(WishObject *)wish OnCompletion:(editWishCompletionHandler)completionHandler{
+
+    NSString *contString = [NSString stringWithFormat:@"%@/wishes", privateURLString];
+    
+    NSDictionary *colorDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                               wish.decoration.colorString, @"color",
+                               wish.decoration.imageURL, @"image",
+                               nil];
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            wish.wishID, @"_id",
+                            wish.content, @"content",
+                            colorDict, @"decoration",
+                            nil];
+    
+    [manager PUT:contString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
 @end

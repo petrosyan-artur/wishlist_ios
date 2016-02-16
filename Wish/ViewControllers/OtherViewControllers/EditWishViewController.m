@@ -1,12 +1,12 @@
 //
-//  CreateWishViewController.m
+//  EditWishViewController.m
 //  Wish
 //
-//  Created by Annie Klekchyan on 1/25/16.
+//  Created by Annie Klekchyan on 2/16/16.
 //  Copyright © 2016 TLab. All rights reserved.
 //
 
-#import "CreateWishViewController.h"
+#import "EditWishViewController.h"
 #import "ColorDecorationCellObject.h"
 #import "AppDelegate.h"
 #import "ColorDecorationCollectionViewCell.h"
@@ -16,21 +16,18 @@
 #import "UIView+Toast.h"
 #import "PrivateService.h"
 
-@interface CreateWishViewController ()
+@interface EditWishViewController ()
 
 @property (strong, nonatomic) IBOutlet UICollectionView *colorsCollectionView;
 @property (strong, nonatomic) IBOutlet UIView *colorsView;
-
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *decorationViewButtomConstraint;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *colorsViewHeightConstraint;
 @property (strong, nonatomic) IBOutlet UITextView *wishTextField;
 
-- (IBAction)openDecorationButtonAction:(UIButton *)sender;
-
 @end
 
-@implementation CreateWishViewController{
-    
+@implementation EditWishViewController{
+
     AppDelegate* appDelgate;
     NSMutableArray *colorsBGArray;
     UIColor *defaultColor;
@@ -39,7 +36,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self navigationBarConfiguration];
     
     self.colorsViewHeightConstraint.constant = 55;
@@ -58,25 +54,13 @@
         [colorsBGArray addObject:colorObj];
     }
     
-    if(appDelgate.configuration.bgDefaultColor){
-       
-        defaultColor = appDelgate.configuration.bgDefaultColor.bgColor;
-        defaultColorString = appDelgate.configuration.bgDefaultColor.bgColorString;
-        [self.wishTextField setBackgroundColor:defaultColor];
-    }else{
-        
-        ColorDecorationCellObject *colorObj = [colorsBGArray objectAtIndex:0];
-        defaultColor = colorObj.bgColor;
-        defaultColorString = colorObj.bgColorString;
-        [self.wishTextField setBackgroundColor:defaultColor];
-        appDelgate.configuration.bgDefaultColor.bgColor = defaultColor;
-        
-        NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:colorObj];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:encodedObject forKey:kbgDefaultColor];
-        [defaults synchronize];
-    }
+    UIColor *bgColor = [WishUtils getColorFromString:self.wish.decoration.colorString];
+    defaultColor = bgColor;
+    defaultColorString = self.wish.decoration.colorString;
+    [self.wishTextField setBackgroundColor:defaultColor];
+   
     [self.colorsCollectionView reloadData];
+    self.wishTextField.text = self.wish.content;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -98,7 +82,7 @@
 
 - (void) navigationBarConfiguration{
     
-    self.navigationItem.title = @"NEW WISH";
+    self.navigationItem.title = @"EDIT WISH";
     [self.navigationController.navigationBar setTitleTextAttributes: @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     UIImage* closeImage = [UIImage imageNamed:@"toolbarCloseIcon"];
@@ -113,16 +97,19 @@
     self.navigationItem.leftBarButtonItem = navCloseButton;
     
     UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 40)];
-    [rightButton setTitle:@"Send" forState:UIControlStateNormal];
+    [rightButton setTitle:@"Edit" forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    [rightButton addTarget:self action:@selector(sendWish:) forControlEvents:UIControlEventTouchUpInside];
+    [rightButton addTarget:self action:@selector(editWish:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
 }
 
-- (IBAction)sendWish:(UIButton *)sender{
-   
+- (IBAction)editWish:(UIButton *)sender{
+    
     if(![self.wishTextField.text isEqualToString:@""]){
+        
+        self.wish.content = self.wishTextField.text;
+        self.wish.decoration.colorString = defaultColorString;
         
         UIView *transparent = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, kmainScreenWidth, kmainScreenHeight)];
         transparent.backgroundColor = [UIColor blackColor];
@@ -133,17 +120,18 @@
         [indicator startAnimating];
         [self.view addSubview:transparent];
         
-        [[PrivateService sharedInstance] postWishWithContent:self.wishTextField.text Color:defaultColorString AndImage:@"" OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+        [[PrivateService sharedInstance] editWishWithWishObject:self.wish OnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
             [transparent removeFromSuperview];
             if(isSucess){
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"getRefreshNotification" object:self];
+               // [[NSNotificationCenter defaultCenter] postNotificationName:@"getRefreshNotification" object:self];
                 [self dismissViewControllerAnimated:YES completion:nil];
             }else{
                 
                 [WishUtils showErrorAlertWithTitle:@"" AndText:[result objectForKey:@"message"]];
             }
+            
         }];
     }
 }
@@ -174,7 +162,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section {
-
+    
     return colorsBGArray.count;
 }
 
@@ -193,23 +181,16 @@
         
         cell.colorView.layer.borderWidth = 0.0f;
     }
-  
+    
     return cell;
 }
 
 #pragma mark - UICollectionViewDelegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     // TODO: Select Item
     ColorDecorationCellObject *colorObj = [colorsBGArray objectAtIndex:indexPath.row];
     [self.wishTextField setBackgroundColor:colorObj.bgColor];
-    
-    NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:colorObj];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:encodedObject forKey:kbgDefaultColor];
-    [defaults synchronize];
-    
-    appDelgate.configuration.bgDefaultColor = colorObj;
     defaultColor = colorObj.bgColor;
     defaultColorString = colorObj.bgColorString;
     [self.colorsCollectionView reloadData];

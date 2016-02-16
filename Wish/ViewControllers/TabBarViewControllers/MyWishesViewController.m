@@ -26,6 +26,8 @@
                                              selector:@selector(receiveGetRefreshNotification:)
                                                  name:@"getRefreshNotification"
                                                object:nil];
+    
+    self.pageIndex = MY_WISHES_PAGE;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,11 +61,24 @@
     if ([WishUtils isAuthenticated]) {
         
         AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        
+        UIView *transparent = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, kmainScreenWidth, kmainScreenHeight)];
+        transparent.backgroundColor = [UIColor blackColor];
+        transparent.alpha = 0.8f;
+        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        indicator.center =CGPointMake(kmainScreenWidth/2, kmainScreenHeight);
+        [transparent addSubview:indicator];
+        [indicator startAnimating];
+        [self.view addSubview:transparent];
+        
         [[PrivateService sharedInstance] getMyWishesWIthUserID:appDelegate.configuration.myUserID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
-            self.sigInView.hidden = YES;
-            self.wishesArray = [WishUtils updateWishArray:result];
-            [self.wishListTableView reloadData];
+            [transparent removeFromSuperview];
+            if(isSucess){
+                self.sigInView.hidden = YES;
+                self.wishesArray = [WishUtils updateWishArray:result];
+                [self.wishListTableView reloadData];
+            }
         }];
     }else{
         
@@ -74,7 +89,7 @@
 - (void) getMoreWishes{
     
     if ([WishUtils isAuthenticated]) {
-        
+    
         [[PrivateService sharedInstance] getMyWishesWitLimit:self.wishesArray.count OnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
             if(isSucess){

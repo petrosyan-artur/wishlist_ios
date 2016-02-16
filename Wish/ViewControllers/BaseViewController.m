@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 #import "PrivateService.h"
+#import "EditWishViewController.h"
 
 @interface BaseViewController ()
 
@@ -76,9 +77,10 @@
     [cell.likeButton addTarget:self action:@selector(likeButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     cell.likeButton.tag = indexPath.row;
     [cell setLikeLabelWithCount:wish.likesCount];
-    
     [cell setLikeButtonState:wish.amILike];
-    
+    cell.wish = wish;
+    cell.pageIndex = self.pageIndex;
+    cell.delegate = self;
     if (indexPath.row == [self.wishesArray count] - 1)
     {
         [self getMoreWishes];
@@ -144,6 +146,29 @@
 
 - (void) getMoreWishes{
     
+}
+
+- (void) editWishWithWishObject:(WishObject *)wish{
+    
+    if(wish.likesCount == 0){
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        UINavigationController *editWishNavigationViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditWishNavigationController"];
+        
+        if([WishUtils isAuthenticated]){
+            
+            EditWishViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"EditWishViewController"];
+            rootViewController.wish = wish;
+            editWishNavigationViewController.viewControllers = @[rootViewController];
+        }else{
+            
+        }
+        
+        [self.navigationController showDetailViewController:editWishNavigationViewController sender:self];
+        
+    }else{
+        [WishUtils showErrorAlertWithTitle:@"" AndText:appDelgate.webConfiguration.wishEditAlertMessage];
+    }
 }
 
 @end

@@ -16,6 +16,7 @@
 		6700DE281C5F62D000380CB1 /* ColorDecorationCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6700DE271C5F62D000380CB1 /* ColorDecorationCollectionViewCell.m */; };
 		6700DE2B1C5F62F400380CB1 /* ColorDecorationCellObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6700DE2A1C5F62F400380CB1 /* ColorDecorationCellObject.m */; };
 		674853C81C6A074F001A499A /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 674853C71C6A074F001A499A /* BaseViewController.m */; };
+		676D226B1C73250B00F54EE8 /* EditWishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 676D226A1C73250B00F54EE8 /* EditWishViewController.m */; };
 		6792E7BD1C52427F000DE98D /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6792E7BC1C52427F000DE98D /* LocalAuthentication.framework */; };
 		6792E7C01C52430A000DE98D /* WishUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6792E7BF1C52430A000DE98D /* WishUtils.m */; };
 		67BE60B01C48E80D0074BF7C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 67BE60AF1C48E80D0074BF7C /* main.m */; };
@@ -79,6 +80,8 @@
 		6700DE2A1C5F62F400380CB1 /* ColorDecorationCellObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorDecorationCellObject.m; sourceTree = "<group>"; };
 		674853C61C6A074F001A499A /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		674853C71C6A074F001A499A /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		676D22691C73250B00F54EE8 /* EditWishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditWishViewController.h; sourceTree = "<group>"; };
+		676D226A1C73250B00F54EE8 /* EditWishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditWishViewController.m; sourceTree = "<group>"; };
 		6792E7BC1C52427F000DE98D /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		6792E7BE1C52430A000DE98D /* WishUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WishUtils.h; sourceTree = "<group>"; };
 		6792E7BF1C52430A000DE98D /* WishUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WishUtils.m; sourceTree = "<group>"; };
@@ -200,6 +203,15 @@
 				67DEB5751C61EF5D00ADB66A /* WishTableViewCell.m */,
 			);
 			path = CustomCells;
+			sourceTree = "<group>";
+		};
+		676D22681C7324CD00F54EE8 /* OtherViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				676D22691C73250B00F54EE8 /* EditWishViewController.h */,
+				676D226A1C73250B00F54EE8 /* EditWishViewController.m */,
+			);
+			path = OtherViewControllers;
 			sourceTree = "<group>";
 		};
 		67BE60A21C48E80D0074BF7C = {
@@ -339,6 +351,7 @@
 		67ED918C1C4D156F00829B7D /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				676D22681C7324CD00F54EE8 /* OtherViewControllers */,
 				67C443011C567FB200B3311D /* TabBarViewControllers */,
 				67C442FD1C56689C00B3311D /* CreateWishViewController */,
 				67ED918D1C4D159700829B7D /* MainTabBarController.h */,
@@ -549,6 +562,7 @@
 				67C72FAB1C523D4500BE30F1 /* Configuration.m in Sources */,
 				6700DE2B1C5F62F400380CB1 /* ColorDecorationCellObject.m in Sources */,
 				67ED918B1C4CD49100829B7D /* PublicService.m in Sources */,
+				676D226B1C73250B00F54EE8 /* EditWishViewController.m in Sources */,
 				67C443151C578F3400B3311D /* SignUpViewController.m in Sources */,
 				67C443001C56692400B3311D /* CreateWishViewController.m in Sources */,
 				67C443071C567FFE00B3311D /* WishSearchViewController.m in Sources */,

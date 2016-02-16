@@ -20,4 +20,10 @@
 #define kbgDefaultColor @"bgDefaultColor"
 #define kMyUserID @"myMyUserID"
 
+typedef enum PageIndexTypes
+{
+    HOME_PAGE,
+    LIKES_PAGE,
+    MY_WISHES_PAGE
+} PageIndex;
 

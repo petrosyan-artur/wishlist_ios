@@ -12,12 +12,13 @@
 #import "WishObject.h"
 #import "WishUtils.h"
 
-@interface BaseViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface BaseViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, LongPressMenuDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *wishListTableView;
 @property (strong, nonatomic) NSMutableArray *wishesArray;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (strong, nonatomic) AppDelegate* appDelgate;
+@property (assign, nonatomic) PageIndex pageIndex;
 
 - (void) getMoreWishes;
 
