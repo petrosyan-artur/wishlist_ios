@@ -15,7 +15,12 @@
 #import "PrivateService.h"
 #import "PublicService.h"
 
-@interface WishListViewController ()
+@interface WishListViewController (){
+    NSTimer *newWishesTimer;
+}
+
+@property (strong, nonatomic) IBOutlet UIButton *showNewWishesButton;
+- (IBAction)showNewWishesButtonAction:(UIButton *)sender;
 
 @end
 
@@ -32,6 +37,37 @@
                                                object:nil];
     
     self.pageIndex = HOME_PAGE;
+    
+    self.showNewWishesButton.layer.cornerRadius = 20.0;
+    [self.showNewWishesButton.layer setMasksToBounds:YES];
+    self.showNewWishesButton.hidden = YES;
+    NSTimeInterval interval = self.appDelgate.webConfiguration.wishCheckInterval;
+    newWishesTimer = [NSTimer scheduledTimerWithTimeInterval: interval
+                                                target: self
+                                                selector:@selector(newWishesTimerTick:)
+                                                userInfo: nil repeats:YES];
+}
+
+- (IBAction)newWishesTimerTick:(NSTimer *)sender{
+    
+    WishObject *lastWishObject = [self.wishesArray objectAtIndex:0];
+    NSString *lastWishID = lastWishObject.wishID;
+    [[PrivateService sharedInstance] isNewWishesWithLastWishID:lastWishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+        
+        if(isSucess){
+            
+            BOOL hasNewWish = [[result objectForKey:@"hasNew"] boolValue];
+            if(hasNewWish){
+                
+                self.showNewWishesButton.hidden = NO;
+            }else{
+                
+                self.showNewWishesButton.hidden = YES;
+            }
+        }else{
+            
+        }
+    }];
 }
 
 - (void)refresh:(UIRefreshControl *)sender
@@ -147,4 +183,8 @@
     }
 }
 
+- (IBAction)showNewWishesButtonAction:(UIButton *)sender {
+    
+    [self getWishes];
+}
 @end

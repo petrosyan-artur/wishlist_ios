@@ -19,12 +19,12 @@
     
     
 }
-@synthesize refreshControl, appDelgate;
+@synthesize refreshControl;
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    _appDelgate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     self.wishListTableView.estimatedRowHeight = 200.0f;
     self.wishListTableView.rowHeight = UITableViewAutomaticDimension;
     self.wishListTableView.delaysContentTouches = NO;
@@ -104,7 +104,7 @@
             NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
             [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
             
-            [[PrivateService sharedInstance] dislikeWishWithUserID:appDelgate.configuration.myUserID AndWishID:wish.wishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+            [[PrivateService sharedInstance] dislikeWishWithUserID:self.appDelgate.configuration.myUserID AndWishID:wish.wishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
                 
                 if (isSucess) {
                     
@@ -125,7 +125,7 @@
             NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
             [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
             
-            [[PrivateService sharedInstance] likeWishWithUserID:appDelgate.configuration.myUserID AndWishID:wish.wishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+            [[PrivateService sharedInstance] likeWishWithUserID:self.appDelgate.configuration.myUserID AndWishID:wish.wishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
                 
                 if(isSucess){
                     
@@ -170,7 +170,7 @@
         [self.navigationController showDetailViewController:editWishNavigationViewController sender:self];
         
     }else{
-        [WishUtils showErrorAlertWithTitle:@"" AndText:appDelgate.webConfiguration.wishEditAlertMessage];
+        [WishUtils showErrorAlertWithTitle:@"" AndText:self.appDelgate.webConfiguration.wishEditAlertMessage];
     }
 }
 
@@ -189,7 +189,7 @@
             }
         }];
     }else{
-        [WishUtils showErrorAlertWithTitle:@"" AndText:appDelgate.webConfiguration.wishDeleteAlertMessage];
+        [WishUtils showErrorAlertWithTitle:@"" AndText:self.appDelgate.webConfiguration.wishDeleteAlertMessage];
     }
 }
 

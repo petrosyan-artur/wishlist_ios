@@ -541,11 +541,27 @@
                                     <outlet property="delegate" destination="YUJ-sX-vtu" id="Hgh-FK-HG1"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cL8-pO-e9P">
+                                <rect key="frame" x="223" y="87" width="154" height="41"/>
+                                <color key="backgroundColor" red="0.0" green="0.43137254899999999" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="154" id="Fcf-w3-Uv5"/>
+                                    <constraint firstAttribute="height" constant="41" id="fe6-Lt-iwj"/>
+                                </constraints>
+                                <state key="normal" title=" New Wishes" image="arrowUp">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showNewWishesButtonAction:" destination="YUJ-sX-vtu" eventType="touchUpInside" id="Cyw-B0-VRF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="LGm-mE-aO8" firstAttribute="leading" secondItem="wgb-65-h77" secondAttribute="leading" id="UPu-F6-hYG"/>
+                            <constraint firstItem="cL8-pO-e9P" firstAttribute="centerX" secondItem="wgb-65-h77" secondAttribute="centerX" id="gIk-w5-cST"/>
                             <constraint firstItem="LGm-mE-aO8" firstAttribute="top" secondItem="qFT-C3-hUm" secondAttribute="bottom" id="mMG-6Y-cHy"/>
+                            <constraint firstItem="cL8-pO-e9P" firstAttribute="top" secondItem="qFT-C3-hUm" secondAttribute="bottom" constant="23" id="ncM-8b-gdf"/>
                             <constraint firstAttribute="trailing" secondItem="LGm-mE-aO8" secondAttribute="trailing" id="ybX-ES-Ggy"/>
                             <constraint firstItem="TEu-lv-93D" firstAttribute="top" secondItem="LGm-mE-aO8" secondAttribute="bottom" id="ylC-QI-peq"/>
                         </constraints>
@@ -553,6 +569,7 @@
                     <tabBarItem key="tabBarItem" title="MAIN" image="tabHomeIcon" id="89D-tH-Huc"/>
                     <keyCommands/>
                     <connections>
+                        <outlet property="showNewWishesButton" destination="cL8-pO-e9P" id="irk-zs-Jy5"/>
                         <outlet property="wishListTableView" destination="LGm-mE-aO8" id="Nhm-9Z-jQO"/>
                     </connections>
                 </viewController>
@@ -1127,6 +1144,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrowUp" width="24" height="32"/>
         <image name="colorsCloseIcon" width="64" height="64"/>
         <image name="tabHomeIcon" width="26" height="26"/>
         <image name="tabLikesIcon" width="26" height="26"/>
