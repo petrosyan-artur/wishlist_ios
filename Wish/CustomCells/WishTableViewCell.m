@@ -118,7 +118,7 @@
     
     if(count > 0){
         
-        self.likesCountLabel.text = [NSString stringWithFormat:@"%d", count];
+        self.likesCountLabel.text = [NSString stringWithFormat:@"%ld", (long)count];
         self.likesCountLabel.hidden = NO;
     }else{
         

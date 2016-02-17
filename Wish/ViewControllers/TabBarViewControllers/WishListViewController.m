@@ -144,14 +144,11 @@
                 
                 self.wishesArray = [WishUtils updatePrivateWishArray:result];
                 [self.refreshControl endRefreshing];
-               // [self.wishListTableView setContentOffset:CGPointMake(0.0f, -60.0f) animated:YES];
-                //[self.wishListTableView reloadData];
-                
-//                NSIndexPath *topPath = [NSIndexPath indexPathForRow:0 inSection:0];
-//                [self.wishListTableView scrollToRowAtIndexPath:topPath
-//                                 atScrollPosition:UITableViewScrollPositionTop
-//                                         animated:YES];
                 [self.wishListTableView reloadData];
+                NSIndexPath *topPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                [self.wishListTableView scrollToRowAtIndexPath:topPath
+                                 atScrollPosition:UITableViewScrollPositionTop
+                                         animated:YES];
             }else{
                 
             }
@@ -166,7 +163,10 @@
                 self.wishesArray = [WishUtils updatePublicWishArray:result];
                 [self.refreshControl endRefreshing];
                 [self.wishListTableView reloadData];
-                
+                NSIndexPath *topPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                [self.wishListTableView scrollToRowAtIndexPath:topPath
+                                              atScrollPosition:UITableViewScrollPositionTop
+                                                      animated:YES];
             }else{
                 
             }

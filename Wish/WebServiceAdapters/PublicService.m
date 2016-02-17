@@ -145,7 +145,7 @@ static AFHTTPRequestOperationManager *manager;
 - (void) getWishesWithLimit:(NSInteger)limit AndUserID:(NSString *)userID OnCompletion:(getOtherWishesWithLimitCompletionHandler)completionHandler{
     
     NSString *contString = [NSString stringWithFormat:@"%@/wishes?userId=%@", publicURLString,userID];
-    NSString *limitString = [NSString stringWithFormat:@"%d", limit];
+    NSString *limitString = [NSString stringWithFormat:@"%ld", (long)limit];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             limitString, @"limit",
                             nil];
@@ -162,7 +162,7 @@ static AFHTTPRequestOperationManager *manager;
 - (void) getWishesWithLimit:(NSInteger)limit OnCompletion:(getWishesWithLimitCompletionHandler)completionHandler{
     
     NSString *contString = [NSString stringWithFormat:@"%@/wishes", publicURLString];
-    NSString *limitString = [NSString stringWithFormat:@"%d", limit];
+    NSString *limitString = [NSString stringWithFormat:@"%ld", (long)limit];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             limitString, @"limit",
                             nil];

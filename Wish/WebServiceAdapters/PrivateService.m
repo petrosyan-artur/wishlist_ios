@@ -82,7 +82,7 @@ static AppDelegate* appDelgate;
 - (void) getWishesWithLimit:(NSInteger)limit OnCompletion:(getWishesWithLimitCompletionHandler)completionHandler{
 
     NSString *contString = [NSString stringWithFormat:@"%@/wishes", privateURLString];
-    NSString *limitString = [NSString stringWithFormat:@"%d", limit];
+    NSString *limitString = [NSString stringWithFormat:@"%ld", (long)limit];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                                limitString, @"limit",
                                nil];
@@ -143,7 +143,7 @@ static AppDelegate* appDelgate;
 - (void) getMyWishesWitLimit:(NSInteger)limit OnCompletion:(getMyWishesWithLimitCompletionHandler)completionHandler{
     
     NSString *contString = [NSString stringWithFormat:@"%@/wishes?userId=%@", privateURLString, appDelgate.configuration.myUserID];
-    NSString *limitString = [NSString stringWithFormat:@"%d", limit];
+    NSString *limitString = [NSString stringWithFormat:@"%ld", (long)limit];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             limitString, @"limit",
                             nil];
@@ -173,7 +173,7 @@ static AppDelegate* appDelgate;
 - (void) getMyLikesWitLimit:(NSInteger)limit OnCompletion:(getMyLikesWithLimitCompletionHandler)completionHandler{
     
     NSString *contString = [NSString stringWithFormat:@"%@/wishes?userId=%@&liked=1", privateURLString, appDelgate.configuration.myUserID];
-    NSString *limitString = [NSString stringWithFormat:@"%d", limit];
+    NSString *limitString = [NSString stringWithFormat:@"%ld", (long)limit];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             limitString, @"limit",
                             nil];
@@ -254,7 +254,7 @@ static AppDelegate* appDelgate;
 - (void) getWishesWithLimit:(NSInteger)limit AndUserID:(NSString *)userID OnCompletion:(getOtherWishesWithLimitCompletionHandler)completionHandler{
     
     NSString *contString = [NSString stringWithFormat:@"%@/wishes?userId=%@", privateURLString,userID];
-    NSString *limitString = [NSString stringWithFormat:@"%d", limit];
+    NSString *limitString = [NSString stringWithFormat:@"%ld", (long)limit];
     NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
                             limitString, @"limit",
                             nil];
