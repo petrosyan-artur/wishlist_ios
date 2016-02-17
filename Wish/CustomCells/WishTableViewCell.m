@@ -11,6 +11,7 @@
 #import "SignUpViewController.h"
 #import "WishUtils.h"
 #import "EditWishViewController.h"
+#import "UserWishListViewController.h"
 
 @implementation WishTableViewCell
 
@@ -127,7 +128,7 @@
 
 - (IBAction)userNameButtonAction:(UIButton *)sender {
     
-    
+    [self openUserWishList:self.wish];
 }
 
 #pragma mark - LongPressMenuDelegate
@@ -140,6 +141,11 @@
 - (void) deleteWishWithWishObject:(WishObject *)wish{
     
     [self.delegate deleteWishWithWishObject:wish];
+}
+
+- (void) openUserWishList:(WishObject *)wish{
+    
+    [self.delegate openUserWishList:wish];
 }
 
 @end

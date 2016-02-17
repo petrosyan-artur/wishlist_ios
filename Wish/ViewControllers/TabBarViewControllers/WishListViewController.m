@@ -93,16 +93,9 @@
     }
 }
 
-- (void)refresh:(UIRefreshControl *)sender
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        [self getWishes];
-        dispatch_async(dispatch_get_main_queue(), ^{
-
-            [self.refreshControl endRefreshing];;
-        });
-    });
+- (void)refresh:(UIRefreshControl *)sender{
+    
+    [self getWishes];
 }
 
 - (void) viewWillAppear:(BOOL)animated{
@@ -133,23 +126,31 @@
     [self.wishesArray removeAllObjects];
     self.appDelgate.wishArray = [[NSMutableArray alloc] init];
     
-    UIView *transparent = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, kmainScreenWidth, kmainScreenHeight)];
-    transparent.backgroundColor = [UIColor blackColor];
-    transparent.alpha = 0.8f;
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    indicator.center =CGPointMake(kmainScreenWidth/2, kmainScreenHeight/2);
-    [transparent addSubview:indicator];
-    [indicator startAnimating];
-    [self.view addSubview:transparent];
+//    UIView *transparent = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, kmainScreenWidth, kmainScreenHeight)];
+//    transparent.backgroundColor = [UIColor blackColor];
+//    transparent.alpha = 0.8f;
+//    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//    indicator.center =CGPointMake(kmainScreenWidth/2, kmainScreenHeight/2);
+//    [transparent addSubview:indicator];
+//    [indicator startAnimating];
+//    [self.view addSubview:transparent];
     
     if ([WishUtils isAuthenticated]) {
         
         [[PrivateService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
-            [transparent removeFromSuperview];
+//            [transparent removeFromSuperview];
             if(isSucess){
                 
                 self.wishesArray = [WishUtils updatePrivateWishArray:result];
+                [self.refreshControl endRefreshing];
+               // [self.wishListTableView setContentOffset:CGPointMake(0.0f, -60.0f) animated:YES];
+                //[self.wishListTableView reloadData];
+                
+//                NSIndexPath *topPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//                [self.wishListTableView scrollToRowAtIndexPath:topPath
+//                                 atScrollPosition:UITableViewScrollPositionTop
+//                                         animated:YES];
                 [self.wishListTableView reloadData];
             }else{
                 
@@ -159,11 +160,13 @@
         
         [[PublicService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
-            [transparent removeFromSuperview];
+//            [transparent removeFromSuperview];
             if(isSucess){
                 
                 self.wishesArray = [WishUtils updatePublicWishArray:result];
+                [self.refreshControl endRefreshing];
                 [self.wishListTableView reloadData];
+                
             }else{
                 
             }
@@ -175,7 +178,7 @@
     
     if ([WishUtils isAuthenticated]) {
         
-        [[PrivateService sharedInstance] getWishesWitLimit:self.appDelgate.wishArray.count OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+        [[PrivateService sharedInstance] getWishesWithLimit:self.appDelgate.wishArray.count OnCompletion:^(NSDictionary *result, BOOL isSucess) {
            
             if(isSucess){
                 
@@ -190,7 +193,7 @@
         }];
     }else{
         
-        [[PublicService sharedInstance] getWishesOnCompletion:^(NSDictionary *result, BOOL isSucess) {
+        [[PublicService sharedInstance] getWishesWithLimit:self.appDelgate.wishArray.count OnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
             if(isSucess){
                 
@@ -209,5 +212,6 @@
 - (IBAction)showNewWishesButtonAction:(UIButton *)sender {
     
     [self getWishes];
+    sender.hidden = YES;
 }
 @end

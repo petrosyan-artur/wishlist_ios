@@ -21,7 +21,8 @@ typedef void (^getMyLikesWithLimitCompletionHandler)(NSDictionary *result, BOOL 
 typedef void (^editWishCompletionHandler)(NSDictionary *result, BOOL isSucess);
 typedef void (^deleteWishCompletionHandler)(NSDictionary *result, BOOL isSucess);
 typedef void (^isNewWishesCompletionHandler)(NSDictionary *result, BOOL isSucess);
-typedef void (^getWishesByUserIDCompletionHandler)(NSDictionary *result, BOOL isSucess);
+typedef void (^getWishesWithUserIDCompletionHandler)(NSDictionary *result, BOOL isSucess);
+typedef void (^getOtherWishesWithLimitCompletionHandler)(NSDictionary *result, BOOL isSucess);
 
 @interface PrivateService : NSObject
 
@@ -29,7 +30,7 @@ typedef void (^getWishesByUserIDCompletionHandler)(NSDictionary *result, BOOL is
 
 - (void) getWishesOnCompletion:(getWishesCompletionHandler)completionHandler;
 - (void) postWishWithContent:(NSString *)content Color:(NSString *)color AndImage:(NSString *)imageURL OnCompletion:(postWishCompletionHandler)completionHandler;
-- (void) getWishesWitLimit:(NSInteger)limit OnCompletion:(getWishesWithLimitCompletionHandler)completionHandler;
+- (void) getWishesWithLimit:(NSInteger)limit OnCompletion:(getWishesWithLimitCompletionHandler)completionHandler;
 - (void) likeWishWithUserID:(NSString *)userID AndWishID:(NSString *) wishID OnCompletion:(likeWishesCompletionHandler)completionHandler;
 - (void) dislikeWishWithUserID:(NSString *)userID AndWishID:(NSString *) wishID OnCompletion:(dislikeWishesCompletionHandler)completionHandler;
 - (void) getMyWishesWIthUserID:(NSString *) userID OnCompletion:(getMyWishesCompletionHandler)completionHandler;
@@ -39,6 +40,7 @@ typedef void (^getWishesByUserIDCompletionHandler)(NSDictionary *result, BOOL is
 - (void) editWishWithWishObject:(WishObject *)wish OnCompletion:(editWishCompletionHandler)completionHandler;
 - (void) deleteWishWithWishObject:(WishObject *)wish OnCompletion:(deleteWishCompletionHandler)completionHandler;
 - (void) isNewWishesWithLastWishID:(NSString *)lastWishID OnCompletion:(isNewWishesCompletionHandler)completionHandler;
-- (void) getWishesByUserID:(NSString *)userID OnCompletion:(getWishesByUserIDCompletionHandler)completionHandler;
+- (void) getWishesWithUserID:(NSString *)userID OnCompletion:(getWishesWithUserIDCompletionHandler)completionHandler;
+- (void) getWishesWithLimit:(NSInteger)limit AndUserID:(NSString *)userID OnCompletion:(getOtherWishesWithLimitCompletionHandler)completionHandler;
 
 @end

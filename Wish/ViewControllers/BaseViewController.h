@@ -12,7 +12,7 @@
 #import "WishObject.h"
 #import "WishUtils.h"
 
-@interface BaseViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, LongPressMenuDelegate>
+@interface BaseViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, WishTableViewCellDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *wishListTableView;
 @property (strong, nonatomic) NSMutableArray *wishesArray;

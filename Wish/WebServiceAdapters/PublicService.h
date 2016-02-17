@@ -14,6 +14,9 @@ typedef void (^getUserNameCompletionHandler)(NSDictionary *result, BOOL isSucess
 typedef void (^registerUserCompletionHandler)(NSDictionary *result, BOOL isSucess);
 typedef void (^getWishesCompletionHandler)(NSDictionary *result, BOOL isSucess);
 typedef void (^isNewWishesCompletionHandler)(NSDictionary *result, BOOL isSucess);
+typedef void (^getWishesWithUserIDCompletionHandler)(NSDictionary *result, BOOL isSucess);
+typedef void (^getWishesWithLimitCompletionHandler)(NSDictionary *result, BOOL isSucess);
+typedef void (^getOtherWishesWithLimitCompletionHandler)(NSDictionary *result, BOOL isSucess);
 
 @interface PublicService : NSObject
 
@@ -25,5 +28,7 @@ typedef void (^isNewWishesCompletionHandler)(NSDictionary *result, BOOL isSucess
 - (void) authenticateWithUsername:(NSString *)username  AndPassword:(NSString *)password OnCompletion:(authenticateCompletionHandler)completionHandler;
 - (void) getWishesOnCompletion:(getWishesCompletionHandler)completionHandler;
 - (void) isNewWishesWithLastWishID:(NSString *)lastWishID OnCompletion:(isNewWishesCompletionHandler)completionHandler;
-
+- (void) getWishesWIthUserID:(NSString *) userID OnCompletion:(getWishesWithUserIDCompletionHandler)completionHandler;
+- (void) getWishesWithLimit:(NSInteger)limit AndUserID:(NSString *)userID OnCompletion:(getWishesWithLimitCompletionHandler)completionHandler;
+- (void) getWishesWithLimit:(NSInteger)limit OnCompletion:(getOtherWishesWithLimitCompletionHandler)completionHandler;
 @end

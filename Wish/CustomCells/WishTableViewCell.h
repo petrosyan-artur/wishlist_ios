@@ -10,14 +10,15 @@
 #import "WishObject.h"
 #import "Definitions.h"
 
-@protocol LongPressMenuDelegate <NSObject>
+@protocol WishTableViewCellDelegate <NSObject>
 
 - (void) editWishWithWishObject:(WishObject *) wish;
 - (void) deleteWishWithWishObject:(WishObject *) wish;
+- (void) openUserWishList:(WishObject *) wish;
 
 @end
 
-@interface WishTableViewCell : UITableViewCell <LongPressMenuDelegate>
+@interface WishTableViewCell : UITableViewCell <WishTableViewCellDelegate>
 
 @property (strong, nonatomic) IBOutlet UIButton *userNameButton;
 
@@ -29,7 +30,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *likesCountLabel;
 @property (strong, nonatomic) WishObject *wish;
 @property (assign, nonatomic) PageIndex pageIndex;
-@property (assign, nonatomic) id<LongPressMenuDelegate> delegate;
+@property (assign, nonatomic) id<WishTableViewCellDelegate> delegate;
 
 - (IBAction)likeButtonAction:(UIButton *)sender;
 - (void) setLikeButtonState:(BOOL) amILike;

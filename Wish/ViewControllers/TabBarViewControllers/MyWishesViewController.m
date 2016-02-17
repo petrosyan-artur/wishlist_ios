@@ -35,16 +35,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)refresh:(UIRefreshControl *)sender
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+- (void)refresh:(UIRefreshControl *)sender{
         
-        [self getWishes];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [self.refreshControl endRefreshing];
-        });
-    });
+    [self getWishes];
 }
 
 - (void) receiveGetRefreshNotification:(NSNotification *) notification
@@ -62,22 +55,23 @@
         
         AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
         
-        UIView *transparent = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, kmainScreenWidth, kmainScreenHeight)];
-        transparent.backgroundColor = [UIColor blackColor];
-        transparent.alpha = 0.8f;
-        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        indicator.center =CGPointMake(kmainScreenWidth/2, kmainScreenHeight);
-        [transparent addSubview:indicator];
-        [indicator startAnimating];
-        [self.view addSubview:transparent];
+//        UIView *transparent = [[UIView alloc]initWithFrame:CGRectMake(0.0f, 0.0f, kmainScreenWidth, kmainScreenHeight)];
+//        transparent.backgroundColor = [UIColor blackColor];
+//        transparent.alpha = 0.8f;
+//        UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//        indicator.center =CGPointMake(kmainScreenWidth/2, kmainScreenHeight);
+//        [transparent addSubview:indicator];
+//        [indicator startAnimating];
+//        [self.view addSubview:transparent];
         
         [[PrivateService sharedInstance] getMyWishesWIthUserID:appDelegate.configuration.myUserID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
-            [transparent removeFromSuperview];
+//            [transparent removeFromSuperview];
             if(isSucess){
                 self.sigInView.hidden = YES;
                 self.wishesArray = [WishUtils updateWishArray:result];
                 [self.wishListTableView reloadData];
+                [self.refreshControl endRefreshing];
             }
         }];
     }else{

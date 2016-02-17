@@ -79,7 +79,7 @@ static AppDelegate* appDelgate;
     }];
 }
 
-- (void) getWishesWitLimit:(NSInteger)limit OnCompletion:(getWishesWithLimitCompletionHandler)completionHandler{
+- (void) getWishesWithLimit:(NSInteger)limit OnCompletion:(getWishesWithLimitCompletionHandler)completionHandler{
 
     NSString *contString = [NSString stringWithFormat:@"%@/wishes", privateURLString];
     NSString *limitString = [NSString stringWithFormat:@"%d", limit];
@@ -238,11 +238,28 @@ static AppDelegate* appDelgate;
     }];
 }
 
-- (void) getWishesByUserID:(NSString *)userID OnCompletion:(getWishesByUserIDCompletionHandler)completionHandler{
+- (void) getWishesWithUserID:(NSString *)userID OnCompletion:(getWishesWithUserIDCompletionHandler)completionHandler{
     
     NSString *contString = [NSString stringWithFormat:@"%@/wishes?userId=%@", privateURLString, userID];
     
     [manager GET:contString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
+- (void) getWishesWithLimit:(NSInteger)limit AndUserID:(NSString *)userID OnCompletion:(getOtherWishesWithLimitCompletionHandler)completionHandler{
+    
+    NSString *contString = [NSString stringWithFormat:@"%@/wishes?userId=%@", privateURLString,userID];
+    NSString *limitString = [NSString stringWithFormat:@"%d", limit];
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
+                            limitString, @"limit",
+                            nil];
+    
+    [manager GET:contString parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

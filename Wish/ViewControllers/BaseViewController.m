@@ -10,6 +10,7 @@
 #import "PrivateService.h"
 #import "EditWishViewController.h"
 #import "PrivateService.h"
+#import "UserWishListViewController.h"
 
 @interface BaseViewController ()
 
@@ -150,7 +151,7 @@
     
 }
 
-#pragma mark - LongPressMenuDelegate
+#pragma mark - WishTableViewCellDelegate
 
 - (void) editWishWithWishObject:(WishObject *)wish{
     
@@ -192,6 +193,15 @@
     }else{
         [WishUtils showErrorAlertWithTitle:@"" AndText:self.appDelgate.webConfiguration.wishDeleteAlertMessage];
     }
+}
+
+- (void) openUserWishList:(WishObject *)wish{
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    UserWishListViewController *userWishesViewController = [storyboard instantiateViewControllerWithIdentifier:@"UserWishListViewController"];
+    userWishesViewController.wish = wish;
+    
+    [self.navigationController showViewController:userWishesViewController sender:self];
 }
 
 @end
