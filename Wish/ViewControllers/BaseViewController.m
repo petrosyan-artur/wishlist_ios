@@ -69,7 +69,7 @@
         cell = [[WishTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
     }
     
-    cell.usernameLabel.text = wish.userName;
+    [cell.userNameButton setTitle:wish.userName forState:UIControlStateNormal];
     NSString *wishDateString = [WishUtils setRightDateFormat:wish.creationDate];
     cell.creationDateLabel.text = wishDateString;
     cell.contentLabel.text = wish.content;
@@ -82,6 +82,7 @@
     cell.wish = wish;
     cell.pageIndex = self.pageIndex;
     cell.delegate = self;
+    
     if (indexPath.row == [self.wishesArray count] - 1)
     {
         [self getMoreWishes];

@@ -43,31 +43,54 @@
     self.showNewWishesButton.hidden = YES;
     NSTimeInterval interval = self.appDelgate.webConfiguration.wishCheckInterval;
     newWishesTimer = [NSTimer scheduledTimerWithTimeInterval: interval
-                                                target: self
-                                                selector:@selector(newWishesTimerTick:)
-                                                userInfo: nil repeats:YES];
+                                                      target: self
+                                                    selector:@selector(newWishesTimerTick:)
+                                                    userInfo: nil repeats:YES];
+    
 }
 
 - (IBAction)newWishesTimerTick:(NSTimer *)sender{
     
     WishObject *lastWishObject = [self.wishesArray objectAtIndex:0];
     NSString *lastWishID = lastWishObject.wishID;
-    [[PrivateService sharedInstance] isNewWishesWithLastWishID:lastWishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+    
+    if([WishUtils isAuthenticated]){
         
-        if(isSucess){
+        [[PrivateService sharedInstance] isNewWishesWithLastWishID:lastWishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
-            BOOL hasNewWish = [[result objectForKey:@"hasNew"] boolValue];
-            if(hasNewWish){
+            if(isSucess){
                 
-                self.showNewWishesButton.hidden = NO;
+                BOOL hasNewWish = [[result objectForKey:@"hasNew"] boolValue];
+                if(hasNewWish){
+                    
+                    self.showNewWishesButton.hidden = NO;
+                }else{
+                    
+                    self.showNewWishesButton.hidden = YES;
+                }
             }else{
                 
-                self.showNewWishesButton.hidden = YES;
             }
-        }else{
+        }];
+    }else{
+        
+        [[PublicService sharedInstance] isNewWishesWithLastWishID:lastWishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
             
-        }
-    }];
+            if(isSucess){
+                
+                BOOL hasNewWish = [[result objectForKey:@"hasNew"] boolValue];
+                if(hasNewWish){
+                    
+                    self.showNewWishesButton.hidden = NO;
+                }else{
+                    
+                    self.showNewWishesButton.hidden = YES;
+                }
+            }else{
+                
+            }
+        }];
+    }
 }
 
 - (void)refresh:(UIRefreshControl *)sender

@@ -13,6 +13,7 @@ typedef void (^authenticateCompletionHandler)(NSDictionary* result, BOOL isSuces
 typedef void (^getUserNameCompletionHandler)(NSDictionary *result, BOOL isSucess);
 typedef void (^registerUserCompletionHandler)(NSDictionary *result, BOOL isSucess);
 typedef void (^getWishesCompletionHandler)(NSDictionary *result, BOOL isSucess);
+typedef void (^isNewWishesCompletionHandler)(NSDictionary *result, BOOL isSucess);
 
 @interface PublicService : NSObject
 
@@ -23,5 +24,6 @@ typedef void (^getWishesCompletionHandler)(NSDictionary *result, BOOL isSucess);
 - (void) registerUserWithUserName:(NSString *)username Password:(NSString *)password Password2:(NSString *)password2 OnCompletion:(registerUserCompletionHandler)completionHandler;
 - (void) authenticateWithUsername:(NSString *)username  AndPassword:(NSString *)password OnCompletion:(authenticateCompletionHandler)completionHandler;
 - (void) getWishesOnCompletion:(getWishesCompletionHandler)completionHandler;
+- (void) isNewWishesWithLastWishID:(NSString *)lastWishID OnCompletion:(isNewWishesCompletionHandler)completionHandler;
 
 @end

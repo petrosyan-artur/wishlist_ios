@@ -238,4 +238,17 @@ static AppDelegate* appDelgate;
     }];
 }
 
+- (void) getWishesByUserID:(NSString *)userID OnCompletion:(getWishesByUserIDCompletionHandler)completionHandler{
+    
+    NSString *contString = [NSString stringWithFormat:@"%@/wishes?userId=%@", privateURLString, userID];
+    
+    [manager GET:contString parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        completionHandler(responseObject, [[responseObject objectForKey:@"success"] boolValue]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        [WishUtils showErrorAlert];
+    }];
+}
+
 @end

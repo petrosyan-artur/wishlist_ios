@@ -16,6 +16,18 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    self.userNameButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    
+    if (self = [super initWithCoder:decoder]) {
+        
+         self.userNameButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    }
+    
+    return self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -111,6 +123,11 @@
         
         self.likesCountLabel.hidden = YES;
     }
+}
+
+- (IBAction)userNameButtonAction:(UIButton *)sender {
+    
+    
 }
 
 #pragma mark - LongPressMenuDelegate

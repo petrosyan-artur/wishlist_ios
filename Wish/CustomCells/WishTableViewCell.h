@@ -19,7 +19,7 @@
 
 @interface WishTableViewCell : UITableViewCell <LongPressMenuDelegate>
 
-@property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (strong, nonatomic) IBOutlet UIButton *userNameButton;
 
 @property (strong, nonatomic) IBOutlet UILabel *creationDateLabel;
 
@@ -34,5 +34,6 @@
 - (IBAction)likeButtonAction:(UIButton *)sender;
 - (void) setLikeButtonState:(BOOL) amILike;
 - (void) setLikeLabelWithCount:(NSInteger) count;
+- (IBAction)userNameButtonAction:(UIButton *)sender;
 
 @end
