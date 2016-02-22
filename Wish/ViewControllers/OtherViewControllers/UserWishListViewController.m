@@ -29,25 +29,12 @@
     UIBarButtonItem *backButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = backButtonItem;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receiveGetRefreshNotification:)
-                                                 name:@"getRefreshNotification"
-                                               object:nil];
-    
     [self getWishes];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void) receiveGetRefreshNotification:(NSNotification *) notification
-{
-    if ([[notification name] isEqualToString:@"getRefreshNotification"]){
-        
-        [self getWishes];
-    }
 }
 
 -(void) popBack {

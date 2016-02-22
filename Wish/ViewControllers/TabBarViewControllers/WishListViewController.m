@@ -245,7 +245,8 @@
 {
     if ([[notification name] isEqualToString:@"getRefreshNotification"]){
         
-        [self getWishes];
+        //[self getWishes];
+        self.showNewWishesButton.hidden = NO;
     }
 }
 
