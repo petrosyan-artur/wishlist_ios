@@ -29,5 +29,6 @@
 + (NSMutableArray *) updatePublicWishArray:(NSDictionary *) result;
 + (NSMutableArray *) updateWishArray:(NSDictionary *) result;
 + (NSMutableArray *) updateWishArray:(NSDictionary *) result AndCurrentWishArray:(NSMutableArray *)currentArray;
++ (UIImage *)imageFromColor:(UIColor *)color forSize:(CGSize)size withCornerRadius:(CGFloat)radius;
 
 @end

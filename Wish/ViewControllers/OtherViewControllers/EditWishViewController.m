@@ -97,7 +97,7 @@
     self.navigationItem.leftBarButtonItem = navCloseButton;
     
     UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 40)];
-    [rightButton setTitle:@"Edit" forState:UIControlStateNormal];
+    [rightButton setTitle:@"Save" forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [rightButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     [rightButton addTarget:self action:@selector(editWish:) forControlEvents:UIControlEventTouchUpInside];

@@ -71,7 +71,12 @@
                 [defaults synchronize];
                 appDelgate.configuration.token = [defaults objectForKey:ktoken];
                 appDelgate.configuration.myUserID = [defaults objectForKey:kMyUserID];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"getRefreshNotification" object:self];
+                NSDictionary *userInfo = @{
+                                           @"wishCreate" : @"0",
+                                           };
+                
+                NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+                [nc postNotificationName:@"getRefreshNotification" object:self userInfo:userInfo];
                 [self dismissViewControllerAnimated:YES completion:nil];
             }else{
                 

@@ -245,8 +245,17 @@
 {
     if ([[notification name] isEqualToString:@"getRefreshNotification"]){
         
-        //[self getWishes];
-        self.showNewWishesButton.hidden = NO;
+        NSDictionary* userInfo = notification.userInfo;
+        NSString* isCreateString = (NSString *) userInfo[@"wishCreate"];
+        
+        if([isCreateString isEqualToString:@"0"]){
+            
+            self.showNewWishesButton.hidden = YES;
+            [self getWishes];
+        }else{
+            
+            self.showNewWishesButton.hidden = NO;
+        }
     }
 }
 

@@ -239,7 +239,16 @@
                                     
                                 }];
     
+    UIAlertAction* noButton = [UIAlertAction
+                               actionWithTitle:@"No"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action)
+                               {
+                                   
+                               }];
     [alert addAction:yesButton];
+    [alert addAction:noButton];
+    
     [self presentViewController:alert animated:YES completion:nil];
 }
 
