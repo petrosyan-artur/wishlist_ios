@@ -191,21 +191,56 @@
 
 - (void) deleteWishWithWishObject:(WishObject *)wish{
     
-    if(wish.likesCount == 0){
-        
-        [[PrivateService sharedInstance] deleteWishWithWishObject:wish OnCompletion:^(NSDictionary *result, BOOL isSucess) {
-            
-            if(isSucess){
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"getRefreshNotification" object:self];
-            }else{
-                
-                [WishUtils showErrorAlertWithTitle:@"" AndText:[result objectForKey:@"message"]];
-            }
-        }];
-    }else{
-        [WishUtils showErrorAlertWithTitle:@"" AndText:self.appDelgate.webConfiguration.wishDeleteAlertMessage];
-    }
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:@""
+                                  message:self.appDelgate.webConfiguration.wishDeleteAlertMessage
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* yesButton = [UIAlertAction
+                                actionWithTitle:@"Yes"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * action)
+                                {
+                                    [[PrivateService sharedInstance] deleteWishWithWishObject:wish OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+                                        
+                                        if(isSucess){
+                                            
+                                            int i = 0;
+                                            for (WishObject *wishObject in self.wishesArray){
+                                                
+                                                if(wish.timestamp == wishObject.timestamp){
+                                                    
+                                                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                                                    NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                                                    
+                                                    [self.wishesArray removeObjectAtIndex:i];
+                                                    [self.wishListTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                                                    break;
+                                                }else{
+                                                    
+                                                    
+                                                }
+                                                i++;
+                                            }
+                                            
+                                            NSDictionary *userInfo = @{
+                                                                       @"wishObject" : wish,
+                                                                       };
+                                            
+                                            NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+                                            [nc postNotificationName:@"deleteWishNotification" object:self userInfo:userInfo];
+                                            
+                                        }else{
+                                            
+                                            [WishUtils showErrorAlertWithTitle:@"" AndText:[result objectForKey:@"message"]];
+                                        }
+                                    }];
+
+                                    
+                                }];
+    
+    [alert addAction:yesButton];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void) openUserWishList:(WishObject *)wish{

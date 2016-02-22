@@ -125,7 +125,13 @@
             [transparent removeFromSuperview];
             if(isSucess){
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"getRefreshNotification" object:self];
+                NSDictionary *userInfo = @{
+                                           @"wishObject" : self.wish,
+                                           };
+                
+                NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+                [nc postNotificationName:@"editWishNotification" object:self userInfo:userInfo];
+                
                 [self dismissViewControllerAnimated:YES completion:nil];
             }else{
                 

@@ -46,6 +46,18 @@
                                                  name:@"dislikeWishesNotification"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveEditWishNotification:)
+                                                 name:@"editWishNotification"
+                                               object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveDeleteWishNotification:)
+                                                 name:@"deleteWishNotification"
+                                               object:nil];
+    
+    
     self.pageIndex = HOME_PAGE;
     
     self.showNewWishesButton.layer.cornerRadius = 20.0;
@@ -100,6 +112,58 @@
                 NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
                 [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
                 [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                break;
+            }else{
+                
+                
+            }
+            i++;
+        }
+    }
+}
+
+- (void) receiveEditWishNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"editWishNotification"]){
+        
+        NSDictionary* userInfo = notification.userInfo;
+        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+        int i = 0;
+        for (WishObject *wish in self.wishesArray){
+            
+            if(wish.timestamp == wishObject.timestamp){
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
+                [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                break;
+            }else{
+                
+                
+            }
+            i++;
+        }
+    }
+}
+
+- (void) receiveDeleteWishNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"deleteWishNotification"]){
+        
+        NSDictionary* userInfo = notification.userInfo;
+        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+        int i = 0;
+        for (WishObject *wish in self.wishesArray){
+            
+            if(wish.timestamp == wishObject.timestamp){
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
+                
+                [self.wishesArray removeObjectAtIndex:i];
+                [self.wishListTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
                 break;
             }else{
                 
