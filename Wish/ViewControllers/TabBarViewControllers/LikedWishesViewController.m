@@ -8,6 +8,7 @@
 
 #import "LikedWishesViewController.h"
 #import "PrivateService.h"
+#import "WishObject.h"
 
 @interface LikedWishesViewController ()
 @property (strong, nonatomic) IBOutlet UIView *sigInView;
@@ -28,6 +29,18 @@
                                              selector:@selector(receiveGetRefreshNotification:)
                                                  name:@"getRefreshNotification"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveLikeWishesNotification:)
+                                                 name:@"likeWishesNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveDislikeWishesNotification:)
+                                                 name:@"dislikeWishesNotification"
+                                               object:nil];
+    
+    
     self.pageIndex = LIKES_PAGE;
 }
 
@@ -56,6 +69,69 @@
     if ([[notification name] isEqualToString:@"getRefreshNotification"]){
         
         [self getWishes];
+    }
+}
+
+- (void) receiveDislikeWishesNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"dislikeWishesNotification"]){
+        
+        NSDictionary* userInfo = notification.userInfo;
+   
+        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+        NSMutableArray *temp = [[NSMutableArray alloc] init];
+        for (WishObject *wish in self.wishesArray){
+            
+            if(wish.timestamp == wishObject.timestamp){
+                
+            }else{
+                
+                [temp addObject:wish];
+            }
+                
+        }
+        
+        self.wishesArray = temp;
+        
+        [self.wishesArray sortUsingDescriptors:
+         @[
+           [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO],
+           ]];
+        
+        [self.wishListTableView reloadData];
+    }
+}
+
+- (void) receiveLikeWishesNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"likeWishesNotification"]){
+        
+        NSDictionary* userInfo = notification.userInfo;
+        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+        
+        BOOL isexist = NO;
+        for (WishObject *wish in self.wishesArray){
+            
+            if(wish.timestamp == wishObject.timestamp){
+                
+                isexist = YES;
+            }else{
+            
+            }
+            
+        }
+        
+        if(!isexist){
+            
+            [self.wishesArray addObject:wishObject];
+        }
+        
+        [self.wishesArray sortUsingDescriptors:
+         @[
+           [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO],
+           ]];
+        
+        [self.wishListTableView reloadData];
     }
 }
 

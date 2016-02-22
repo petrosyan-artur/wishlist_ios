@@ -271,6 +271,7 @@
         wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
         wish.userID = [wishDict objectForKey:@"userId"];
         wish.userName = [wishDict objectForKey:@"username"];
+        wish.timestamp = [[wishDict objectForKey:@"timestamp"] intValue];
         
         [appDelgate.wishArray addObject:wish];
     }
@@ -294,6 +295,7 @@
         wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
         wish.userID = [wishDict objectForKey:@"userId"];
         wish.userName = [wishDict objectForKey:@"username"];
+        wish.timestamp = [[wishDict objectForKey:@"timestamp"] intValue];
         
         [appDelgate.wishArray addObject:wish];
     }
@@ -317,6 +319,7 @@
         wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
         wish.userID = [wishDict objectForKey:@"userId"];
         wish.userName = [wishDict objectForKey:@"username"];
+        wish.timestamp = [[wishDict objectForKey:@"timestamp"] intValue];
         
         [currentArray addObject:wish];
     }
@@ -341,6 +344,7 @@
         wish.likesCount = [[wishDict objectForKey:@"likes"] intValue];
         wish.userID = [wishDict objectForKey:@"userId"];
         wish.userName = [wishDict objectForKey:@"username"];
+        wish.timestamp = [[wishDict objectForKey:@"timestamp"] intValue];
         
         [resultArray addObject:wish];
     }

@@ -110,6 +110,13 @@
                 
                 if (isSucess) {
                     
+                    NSDictionary *userInfo = @{
+                                                @"wishObject" : wish,
+                                                };
+                    
+                    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+                    [nc postNotificationName:@"dislikeWishesNotification" object:self userInfo:userInfo];
+                   
                 }else{
                     
                     wish.amILike = YES;
@@ -131,7 +138,13 @@
                 
                 if(isSucess){
                     
+                    NSDictionary *userInfo = @{
+                                               @"wishObject" : wish,
+                                               };
                     
+                    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+                    [nc postNotificationName:@"likeWishesNotification" object:self userInfo:userInfo];
+                
                 }else{
                     
                     wish.amILike = NO;

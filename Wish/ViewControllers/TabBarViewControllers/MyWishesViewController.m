@@ -27,12 +27,73 @@
                                                  name:@"getRefreshNotification"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveLikeWishesNotification:)
+                                                 name:@"likeWishesNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveDislikeWishesNotification:)
+                                                 name:@"dislikeWishesNotification"
+                                               object:nil];
+    
     self.pageIndex = MY_WISHES_PAGE;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) receiveDislikeWishesNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"dislikeWishesNotification"]){
+        
+        
+        NSDictionary* userInfo = notification.userInfo;
+        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+        int i = 0;
+        for (WishObject *wish in self.wishesArray){
+            
+            if(wish.timestamp == wishObject.timestamp){
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
+                [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                break;
+            }else{
+                
+                
+            }
+            i++;
+        }
+    }
+}
+
+- (void) receiveLikeWishesNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"likeWishesNotification"]){
+        
+        NSDictionary* userInfo = notification.userInfo;
+        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+        int i = 0;
+        for (WishObject *wish in self.wishesArray){
+            
+            if(wish.timestamp == wishObject.timestamp){
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
+                [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                break;
+            }else{
+                
+                
+            }
+            i++;
+        }
+    }
 }
 
 - (void)refresh:(UIRefreshControl *)sender{

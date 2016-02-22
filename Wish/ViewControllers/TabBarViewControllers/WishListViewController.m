@@ -36,6 +36,16 @@
                                                  name:@"getRefreshNotification"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveLikeWishesNotification:)
+                                                 name:@"likeWishesNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveDislikeWishesNotification:)
+                                                 name:@"dislikeWishesNotification"
+                                               object:nil];
+    
     self.pageIndex = HOME_PAGE;
     
     self.showNewWishesButton.layer.cornerRadius = 20.0;
@@ -49,47 +59,101 @@
     
 }
 
+- (void) receiveDislikeWishesNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"dislikeWishesNotification"]){
+        
+        NSDictionary* userInfo = notification.userInfo;
+        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+        int i = 0;
+        for (WishObject *wish in self.wishesArray){
+            
+            if(wish.timestamp == wishObject.timestamp){
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
+                [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                break;
+            }else{
+                
+             
+            }
+            i++;
+        }
+    }
+}
+
+- (void) receiveLikeWishesNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"likeWishesNotification"]){
+        
+        
+        NSDictionary* userInfo = notification.userInfo;
+        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+        int i = 0;
+        for (WishObject *wish in self.wishesArray){
+            
+            if(wish.timestamp == wishObject.timestamp){
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
+                [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                break;
+            }else{
+                
+                
+            }
+            i++;
+        }
+    }
+}
+
 - (IBAction)newWishesTimerTick:(NSTimer *)sender{
     
-    WishObject *lastWishObject = [self.wishesArray objectAtIndex:0];
-    NSString *lastWishID = lastWishObject.wishID;
-    
-    if([WishUtils isAuthenticated]){
+    if(self.wishesArray.count > 0){
         
-        [[PrivateService sharedInstance] isNewWishesWithLastWishID:lastWishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+        WishObject *lastWishObject = [self.wishesArray objectAtIndex:0];
+        NSString *lastWishID = lastWishObject.wishID;
+        
+        if([WishUtils isAuthenticated]){
             
-            if(isSucess){
+            [[PrivateService sharedInstance] isNewWishesWithLastWishID:lastWishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
                 
-                BOOL hasNewWish = [[result objectForKey:@"hasNew"] boolValue];
-                if(hasNewWish){
+                if(isSucess){
                     
-                    self.showNewWishesButton.hidden = NO;
+                    BOOL hasNewWish = [[result objectForKey:@"hasNew"] boolValue];
+                    if(hasNewWish){
+                        
+                        self.showNewWishesButton.hidden = NO;
+                    }else{
+                        
+                        self.showNewWishesButton.hidden = YES;
+                    }
                 }else{
                     
-                    self.showNewWishesButton.hidden = YES;
                 }
-            }else{
-                
-            }
-        }];
-    }else{
-        
-        [[PublicService sharedInstance] isNewWishesWithLastWishID:lastWishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
+            }];
+        }else{
             
-            if(isSucess){
+            [[PublicService sharedInstance] isNewWishesWithLastWishID:lastWishID OnCompletion:^(NSDictionary *result, BOOL isSucess) {
                 
-                BOOL hasNewWish = [[result objectForKey:@"hasNew"] boolValue];
-                if(hasNewWish){
+                if(isSucess){
                     
-                    self.showNewWishesButton.hidden = NO;
+                    BOOL hasNewWish = [[result objectForKey:@"hasNew"] boolValue];
+                    if(hasNewWish){
+                        
+                        self.showNewWishesButton.hidden = NO;
+                    }else{
+                        
+                        self.showNewWishesButton.hidden = YES;
+                    }
                 }else{
                     
-                    self.showNewWishesButton.hidden = YES;
                 }
-            }else{
-                
-            }
-        }];
+            }];
+        }
     }
 }
 

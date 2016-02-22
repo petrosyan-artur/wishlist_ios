@@ -20,5 +20,6 @@
 @property (nonatomic, assign) NSInteger likesCount;
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *userName;
+@property (nonatomic, assign) NSInteger timestamp;
 
 @end

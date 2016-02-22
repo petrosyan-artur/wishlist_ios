@@ -55,6 +55,9 @@
     
     [WishUtils getWishes];
     
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+//    UITabBarController *tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"RootTabBarController"];
+
     return YES;
 }
 
