@@ -40,6 +40,12 @@
     
 }
 
+- (void) viewWillAppear:(BOOL)animated{
+
+    [super viewWillAppear:YES];
+    self.appDelgate.currentPageIndex = self.pageIndex;
+}
+
 - (void) viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:YES];
@@ -93,7 +99,7 @@
 }
 
 - (IBAction)likeButtonAction:(UIButton *)sender{
-    
+
     if([WishUtils isAuthenticated]){
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[sender tag] inSection:0];

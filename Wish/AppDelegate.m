@@ -17,11 +17,10 @@
 #import "WishObject.h"
 
 @interface AppDelegate ()
-@property(nonatomic, retain) JKLLockScreenViewController * JKViewController;
+
 @end
 
 @implementation AppDelegate
-@synthesize JKViewController;
 @synthesize webConfiguration;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -203,47 +202,55 @@
         return YES;
     }else{
         
-        [WishUtils shakeAnimationWithViewComtroller:JKViewController];
+        [WishUtils shakeAnimationWithViewComtroller:self.JKViewController];
     }
     
     return NO;
 }
 
 - (BOOL)allowTouchIDLockScreenViewController:(JKLLockScreenViewController *)lockScreenViewController{
- 
-    LAContext *myContext = [[LAContext alloc] init];
-    NSError *authError = nil;
-    NSString *myLocalizedReasonString = @"Authentication";
     
-    if ([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
-        [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
-                  localizedReason:myLocalizedReasonString
-                            reply:^(BOOL success, NSError *error) {
-                                if (success) {
-                                    // User authenticated successfully, take appropriate action
-                                    
-                                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                                    UINavigationController *rootNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"RootNavigationController"];
-                                    self.window.rootViewController = rootNavigationController;
-                                    
-                                } else {
-                                    // User did not authenticate successfully, look at error and take appropriate action
-                                }
-                            }];
-    } else {
-        // Could not evaluate policy; look at authError and present an appropriate message to user
-    }
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("touchIdQueue", 0);
+    
+    dispatch_async(backgroundQueue, ^{
+       
+        LAContext *myContext = [[LAContext alloc] init];
+        NSError *authError = nil;
+        NSString *myLocalizedReasonString = @"Authentication";
+        if ([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
+            [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
+                      localizedReason:myLocalizedReasonString
+                                reply:^(BOOL success, NSError *error) {
+                                    if (success) {
+                                        // User authenticated successfully, take appropriate action
+                                        
+                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                            
+                                            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+                                            UINavigationController *rootNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"RootNavigationController"];
+                                            self.window.rootViewController = rootNavigationController;
+                                        });
+                                    } else {
+                                        // User did not authenticate successfully, look at error and take appropriate action
+                                    }
+                                }];
+        } else {
+            // Could not evaluate policy; look at authError and present an appropriate message to user
+        }
+    });
+    
+    
     return YES;
 }
 
 - (void) passCodeCkeck{
  
-    JKViewController = [[JKLLockScreenViewController alloc] initWithNibName:NSStringFromClass([JKLLockScreenViewController class]) bundle:nil];
-    [JKViewController setLockScreenMode:LockScreenModeNormal]; // enum { LockScreenModeNormal, LockScreenModeNew, LockScreenModeChange }
-    [JKViewController setDelegate:self];
-    [JKViewController setDataSource:self];
+    _JKViewController = [[JKLLockScreenViewController alloc] initWithNibName:NSStringFromClass([JKLLockScreenViewController class]) bundle:nil];
+    [self.JKViewController setLockScreenMode:LockScreenModeNormal]; // enum { LockScreenModeNormal, LockScreenModeNew, LockScreenModeChange }
+    [self.JKViewController setDelegate:self];
+    [self.JKViewController setDataSource:self];
     
-    self.window.rootViewController = JKViewController;
+    self.window.rootViewController = self.JKViewController;
 }
 
 @end

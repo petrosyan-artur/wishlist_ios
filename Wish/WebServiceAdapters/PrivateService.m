@@ -32,14 +32,14 @@ static AppDelegate* appDelgate;
     NSString *appVersion = [NSString stringWithFormat:@"Version %@",[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]];
     appVersion = [appVersion substringFromIndex:8];
     
-    NSString *userAgentHeaderString = [NSString stringWithFormat:@"%@, %f, %@, %@", platform, osVersion, model, appVersion];
+    NSString *userAgentHeaderString = [NSString stringWithFormat:@"%@;%f;%@;%@", platform, osVersion, model, appVersion];
     
     privateURLString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SERVICE_URL_PRIVATE"];
     manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:userAgentHeaderString forHTTPHeaderField:@"User-Agent"];
     [manager.requestSerializer setValue:appDelgate.configuration.token forHTTPHeaderField:@"x-access-token"];
+    [manager.requestSerializer setValue:userAgentHeaderString forHTTPHeaderField:@"my-user-agent"];
     return sharedInstance;
 }
 

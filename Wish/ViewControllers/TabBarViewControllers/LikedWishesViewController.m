@@ -68,8 +68,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) receiveDislikeWishesNotification:(NSNotification *) notification
-{
+- (void) receiveDislikeWishesNotification:(NSNotification *) notification{
+        
     if ([[notification name] isEqualToString:@"dislikeWishesNotification"]){
         
         NSDictionary* userInfo = notification.userInfo;
@@ -98,8 +98,8 @@
     }
 }
 
-- (void) receiveLikeWishesNotification:(NSNotification *) notification
-{
+- (void) receiveLikeWishesNotification:(NSNotification *) notification{
+    
     if ([[notification name] isEqualToString:@"likeWishesNotification"]){
         
         NSDictionary* userInfo = notification.userInfo;
@@ -133,52 +133,58 @@
 
 - (void) receiveEditWishNotification:(NSNotification *) notification
 {
-    if ([[notification name] isEqualToString:@"editWishNotification"]){
+    if(self.appDelgate.currentPageIndex != self.pageIndex){
         
-        NSDictionary* userInfo = notification.userInfo;
-        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
-        int i = 0;
-        for (WishObject *wish in self.wishesArray){
+        if ([[notification name] isEqualToString:@"editWishNotification"]){
             
-            if(wish.timestamp == wishObject.timestamp){
+            NSDictionary* userInfo = notification.userInfo;
+            WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+            int i = 0;
+            for (WishObject *wish in self.wishesArray){
                 
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
-                [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
-                [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-                break;
-            }else{
-                
-                
+                if(wish.timestamp == wishObject.timestamp){
+                    
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                    NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                    [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
+                    [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                    break;
+                }else{
+                    
+                    
+                }
+                i++;
             }
-            i++;
         }
     }
 }
 
 - (void) receiveDeleteWishNotification:(NSNotification *) notification
 {
-    if ([[notification name] isEqualToString:@"deleteWishNotification"]){
+    if(self.appDelgate.currentPageIndex != self.pageIndex){
         
-        NSDictionary* userInfo = notification.userInfo;
-        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
-        int i = 0;
-        for (WishObject *wish in self.wishesArray){
+        if ([[notification name] isEqualToString:@"deleteWishNotification"]){
             
-            if(wish.timestamp == wishObject.timestamp){
+            NSDictionary* userInfo = notification.userInfo;
+            WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+            int i = 0;
+            for (WishObject *wish in self.wishesArray){
                 
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
-                [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
-                
-                [self.wishesArray removeObjectAtIndex:i];
-                [self.wishListTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-                break;
-            }else{
-                
-                
+                if(wish.timestamp == wishObject.timestamp){
+                    
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                    NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                    [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
+                    
+                    [self.wishesArray removeObjectAtIndex:i];
+                    [self.wishListTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                    break;
+                }else{
+                    
+                    
+                }
+                i++;
             }
-            i++;
         }
     }
 }

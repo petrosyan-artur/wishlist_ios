@@ -57,57 +57,62 @@
 
 - (void) receiveDislikeWishesNotification:(NSNotification *) notification
 {
-    if ([[notification name] isEqualToString:@"dislikeWishesNotification"]){
+    if(self.appDelgate.currentPageIndex != self.pageIndex){
         
-        
-        NSDictionary* userInfo = notification.userInfo;
-        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
-        int i = 0;
-        for (WishObject *wish in self.wishesArray){
+        if ([[notification name] isEqualToString:@"dislikeWishesNotification"]){
             
-            if(wish.timestamp == wishObject.timestamp){
+            NSDictionary* userInfo = notification.userInfo;
+            WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+            int i = 0;
+            for (WishObject *wish in self.wishesArray){
                 
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
-                [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
-                [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-                break;
-            }else{
-                
-                
+                if(wish.timestamp == wishObject.timestamp){
+                    
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                    NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                    [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
+                    [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                    break;
+                }else{
+                    
+                    
+                }
+                i++;
             }
-            i++;
         }
     }
 }
 
 - (void) receiveLikeWishesNotification:(NSNotification *) notification
 {
-    if ([[notification name] isEqualToString:@"likeWishesNotification"]){
+    if(self.appDelgate.currentPageIndex != self.pageIndex){
         
-        NSDictionary* userInfo = notification.userInfo;
-        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
-        int i = 0;
-        for (WishObject *wish in self.wishesArray){
+        if ([[notification name] isEqualToString:@"likeWishesNotification"]){
             
-            if(wish.timestamp == wishObject.timestamp){
+            NSDictionary* userInfo = notification.userInfo;
+            WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+            int i = 0;
+            for (WishObject *wish in self.wishesArray){
                 
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
-                [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
-                [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-                break;
-            }else{
-                
-                
+                if(wish.timestamp == wishObject.timestamp){
+                    
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                    NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                    [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
+                    [self.wishListTableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                    break;
+                }else{
+                    
+                    
+                }
+                i++;
             }
-            i++;
         }
     }
 }
 
-- (void) receiveEditWishNotification:(NSNotification *) notification
-{
+- (void) receiveEditWishNotification:(NSNotification *) notification{
+    
     if ([[notification name] isEqualToString:@"editWishNotification"]){
         
         NSDictionary* userInfo = notification.userInfo;
@@ -133,27 +138,29 @@
 
 - (void) receiveDeleteWishNotification:(NSNotification *) notification
 {
-    if ([[notification name] isEqualToString:@"deleteWishNotification"]){
-        
-        NSDictionary* userInfo = notification.userInfo;
-        WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
-        int i = 0;
-        for (WishObject *wish in self.wishesArray){
+    if(self.appDelgate.currentPageIndex != self.pageIndex){
+        if ([[notification name] isEqualToString:@"deleteWishNotification"]){
             
-            if(wish.timestamp == wishObject.timestamp){
+            NSDictionary* userInfo = notification.userInfo;
+            WishObject* wishObject = (WishObject *) userInfo[@"wishObject"];
+            int i = 0;
+            for (WishObject *wish in self.wishesArray){
                 
-                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-                NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
-                [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
-                
-                [self.wishesArray removeObjectAtIndex:i];
-                [self.wishListTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-                break;
-            }else{
-                
-                
+                if(wish.timestamp == wishObject.timestamp){
+                    
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                    NSArray *indexPaths = [[NSArray alloc] initWithObjects:indexPath, nil];
+                    [self.wishesArray replaceObjectAtIndex:i withObject:wishObject];
+                    
+                    [self.wishesArray removeObjectAtIndex:i];
+                    [self.wishListTableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+                    break;
+                }else{
+                    
+                    
+                }
+                i++;
             }
-            i++;
         }
     }
 }
