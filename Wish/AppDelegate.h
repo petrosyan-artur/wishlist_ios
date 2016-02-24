@@ -13,6 +13,8 @@
 #import "WebConfiguration.h"
 #import "Definitions.h"
 
+@import HockeySDK;
+
 typedef enum PageIndexTypes
 {
     HOME_PAGE,
@@ -20,7 +22,7 @@ typedef enum PageIndexTypes
     MY_WISHES_PAGE
 } PageIndex;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, JKLLockScreenViewControllerDataSource, JKLLockScreenViewControllerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, JKLLockScreenViewControllerDataSource, JKLLockScreenViewControllerDelegate, BITHockeyManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

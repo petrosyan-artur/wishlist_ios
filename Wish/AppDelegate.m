@@ -21,10 +21,26 @@
 @end
 
 @implementation AppDelegate
+
 @synthesize webConfiguration;
+
+-(NSString *)userIDForHockeyManager:(BITHockeyManager *)hockeyManager componentManager:(BITHockeyBaseManager *)componentManager{
+    
+    NSString *userID = self.configuration.myUserID;
+    return userID;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    NSString *hockeyAppID = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"HockeyAppBetaAppID"];
+    
+    [BITHockeyManager sharedHockeyManager].delegate = self;
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:hockeyAppID];
+    [[BITHockeyManager sharedHockeyManager].crashManager setCrashManagerStatus:BITCrashManagerStatusAutoSend];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+    [[BITHockeyManager sharedHockeyManager].authenticator authenticateInstallation];
+    
     
     webConfiguration = [[WebConfiguration alloc] init];
     [[PublicService sharedInstance] getConfigurationOnCompletion:^(NSDictionary *result, BOOL isSucess) {
@@ -181,6 +197,10 @@
 
 - (void)unlockWasSuccessfulLockScreenViewController:(JKLLockScreenViewController *)lockScreenViewController{
     
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    UINavigationController *rootNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"RootNavigationController"];
+    self.window.rootViewController = rootNavigationController;
+    
 }
 
 - (void)unlockWasCancelledLockScreenViewController:(JKLLockScreenViewController *)lockScreenViewController{
@@ -209,36 +229,6 @@
 }
 
 - (BOOL)allowTouchIDLockScreenViewController:(JKLLockScreenViewController *)lockScreenViewController{
-    
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("touchIdQueue", 0);
-    
-    dispatch_async(backgroundQueue, ^{
-       
-        LAContext *myContext = [[LAContext alloc] init];
-        NSError *authError = nil;
-        NSString *myLocalizedReasonString = @"Authentication";
-        if ([myContext canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&authError]) {
-            [myContext evaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics
-                      localizedReason:myLocalizedReasonString
-                                reply:^(BOOL success, NSError *error) {
-                                    if (success) {
-                                        // User authenticated successfully, take appropriate action
-                                        
-                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                            
-                                            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-                                            UINavigationController *rootNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"RootNavigationController"];
-                                            self.window.rootViewController = rootNavigationController;
-                                        });
-                                    } else {
-                                        // User did not authenticate successfully, look at error and take appropriate action
-                                    }
-                                }];
-        } else {
-            // Could not evaluate policy; look at authError and present an appropriate message to user
-        }
-    });
-    
     
     return YES;
 }

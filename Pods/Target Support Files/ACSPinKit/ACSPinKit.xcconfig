@@ -1,4 +1,4 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/ACSPinKit" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ACSPinKit" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/FDKeychain" "${PODS_ROOT}/Headers/Public/JKLLockScreenViewController"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/ACSPinKit" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ACSPinKit" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/FDKeychain" "${PODS_ROOT}/Headers/Public/HockeySDK" "${PODS_ROOT}/Headers/Public/JKLLockScreenViewController"
 PODS_ROOT = ${SRCROOT}
 SKIP_INSTALL = YES
