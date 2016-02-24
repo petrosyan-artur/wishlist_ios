@@ -781,6 +781,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Annie Klekchyan (R6RUJ445LG)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Annie Klekchyan (R6RUJ445LG)";
 				INFOPLIST_FILE = Wish/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tsolutions.Wish;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -797,10 +798,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: TELASCO COMMUNICATIONS LTD (THZXVERPDK)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TELASCO COMMUNICATIONS LTD (THZXVERPDK)";
 				INFOPLIST_FILE = Wish/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tsolutions.Wish;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fa210a2d-b332-43c6-a08f-22da8095c366";
+				PROVISIONING_PROFILE = "9879d4cd-1684-47d5-890f-e776dbb23938";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
