@@ -27,6 +27,11 @@
     [self getWishes];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveGetRefreshNotification:)
+                                                 name:@"getRefreshNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveLikeWishesNotification:)
                                                  name:@"likeWishesNotification"
                                                object:nil];
@@ -66,6 +71,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) receiveGetRefreshNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"getRefreshNotification"]){
+        
+        [self getWishes];
+    }
 }
 
 - (void) receiveDislikeWishesNotification:(NSNotification *) notification{
