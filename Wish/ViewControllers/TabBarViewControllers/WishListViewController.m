@@ -29,6 +29,10 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [[self.navigationController.viewControllers objectAtIndex:0] setTitle:@"MAIN"];
+    [self.navigationController.navigationBar setTitleTextAttributes: @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
     self.wishesArray = [[NSMutableArray alloc] initWithArray:self.appDelgate.wishArray];
     
     [[NSNotificationCenter defaultCenter] addObserver:self

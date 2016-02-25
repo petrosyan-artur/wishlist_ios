@@ -23,6 +23,9 @@
     
     [super viewDidLoad];
     
+    [[self.navigationController.viewControllers objectAtIndex:0] setTitle:@"LIKES"];
+    [self.navigationController.navigationBar setTitleTextAttributes: @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
     self.sigInView.hidden = YES;
     [self getWishes];
     

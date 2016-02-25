@@ -20,6 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [[self.navigationController.viewControllers objectAtIndex:0] setTitle:@"MY WISHES"];
+    [self.navigationController.navigationBar setTitleTextAttributes: @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.sigInView.hidden = YES;
     [self getWishes];
     [[NSNotificationCenter defaultCenter] addObserver:self
